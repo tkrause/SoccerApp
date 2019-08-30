@@ -5,7 +5,6 @@
   "scripts": {
     "build": "npm run build:web",
     "start": "node server.js",
-    "postinstall": "npm run build",
     "lint": "vue-cli-service lint",
     "build:android": "npm run setup-webpack-config && tns build android --bundle --env.production && npm run remove-webpack-config",
     "build:ios": "npm run setup-webpack-config && tns build ios --bundle --env.production && npm run remove-webpack-config",
