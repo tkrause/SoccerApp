@@ -1,10 +1,12 @@
 <template>
-  <div>
-    <div class="message">{{msg}}</div>
-    <img src="~/components/icon.png" alt="logo">
-  </div>
+  <GridLayout rows="auto, auto">
+    <Label class="message" :text="msg" row="0" horizontalAlignment="center"/>
+    <!-- copy-webpack-plugin copies asset from src/assets to project output/build directory /assets -->
+    <Img src="~/components/icon.png" row="1" class="m-40"/>
+  </GridLayout>
 </template>
 <script>
+
   export default {
     name: 'HelloWorld',
     props: {
