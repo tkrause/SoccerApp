@@ -1,5 +1,5 @@
 {
-  "name": "soccer-app",
+  "name": "soccer-league",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -25,6 +25,7 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "nativescript-vue": "^2.2.2",
+    "nativescript-vue-web": "^0.9.4",
     "tns-core-modules": "6.0.1",
     "express": "^4.17.1",
     "serve-static": "^1.14.1",

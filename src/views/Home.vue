@@ -1,10 +1,11 @@
 <template web>
-  <div class="w-page">
-    <div class="w-container">
-      <img src="~/assets/logo.png" alt="logo">
-      <HelloWorld :msg="msg"/>
-    </div>
-  </div>
+  <Page>
+    <GridLayout rows="auto, auto">
+      <!-- copy-webpack-plugin copies asset from src/assets to project output/build directory /assets -->
+      <Img src="~/assets/logo.png" row="0" class="m-20"/>
+      <HelloWorld :msg="msg" row="1"/>
+    </GridLayout>
+  </Page>
 </template>
 <template native>
   <Page>
@@ -24,7 +25,7 @@
   export default {
     name: 'home',
     components: {
-      HelloWorld
+      HelloWorld,
     },
     data() {
       return {
@@ -41,10 +42,13 @@
   @import '~styles/style-two';
 
   img, Image {
-    height: 20%;
-    width: 20%;
     display: block;
     margin: auto;
     margin-top: 4em;
+  }
+
+  Image {
+    height: 20%;
+    width: 20%;
   }
 </style>
