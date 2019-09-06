@@ -19,7 +19,7 @@
 <script>
   import HelloWorld from '~/components/HelloWorld';
 
-  const { VUE_APP_MODE, VUE_APP_PLATFORM } = process.env;
+  const {VUE_APP_MODE, VUE_APP_PLATFORM} = process.env;
 
   export default {
     components: {
@@ -32,6 +32,9 @@
       };
     },
     methods: {
+      onButtonTap() {
+        console.log("Button was pressed");
+      }
     }
   };
 </script>
