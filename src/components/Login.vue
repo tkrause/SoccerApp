@@ -19,25 +19,34 @@
 </template>
 
 <script>
-
     import SignUp from "./SignUp";
+    import Home from "./Home";
 
     export default {
         data() {
             return {
-                email: null,
-                password: null,
-
+                // TODO: make these null to start with when done testing
+                email: 'user@example.com',
+                password: '0987654321',
             };
         },
         methods: {
-            onSignIn() {
+            async onSignIn() {
+                try {
+                    let user = await this.$api.login(this.email, this.password)
+                    this.$navigateTo(Home, { clearHistory: true })
+                } catch (e) {
+                    // TODO: handle validation errors
+                    // if e.response.statusCode is null
+                    // then it was a network error and the server is probably down.
+                    // data will contain errors in JSON if it was a validation error
 
+                    console.log(e.response.data)
+                }
             },
 
             onSignUp() {
-                this.$navigateTo(SignUp)
-
+                this.$navigateTo(Home, { clearHistory: true })
             }
         }
     };

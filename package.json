@@ -15,20 +15,21 @@
     "debug:android": "npm run setup-webpack-config && tns debug android --bundle --env.development",
     "debug:ios": "npm run setup-webpack-config && tns debug ios --bundle --env.development",
     "preview:android": "npm run setup-webpack-config && tns preview --bundle --env.development --env.android",
-    "preview:ios": "npm run setup-webpack-config && tns preview --bundle --env.development --env.ios",
+    "preview:ios": "npm run setup-webpack-config && tns preview --bundle --env.development ",
     "remove-webpack-config": "node ./node_modules/vue-cli-plugin-nativescript-vue/lib/scripts/webpack-maintenance post",
-    "serve:android": "npm run setup-webpack-config && tns run android --bundle --env.development",
-    "serve:ios": "npm run setup-webpack-config && tns run ios --bundle --env.development",
+    "serve:android": "npm run setup-webpack-config && tns run android --bundle --env.development --env.android",
+    "serve:ios": "npm run setup-webpack-config && tns run ios --bundle --env.development --env.ios",
     "serve:web": "vue-cli-service serve --mode development.web",
     "setup-webpack-config": "node ./node_modules/vue-cli-plugin-nativescript-vue/lib/scripts/webpack-maintenance pre"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "core-js": "^2.6.5",
+    "express": "^4.17.1",
     "nativescript-vue": "^2.2.2",
     "nativescript-vue-web": "^0.9.4",
-    "tns-core-modules": "6.0.1",
-    "express": "^4.17.1",
     "serve-static": "^1.14.1",
+    "tns-core-modules": "6.0.1",
     "vue": "^2.6.10"
   },
   "devDependencies": {
