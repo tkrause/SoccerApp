@@ -25,11 +25,12 @@
 
 <script>
     export default {
-        Name:null,
-        email:null,
-        password:null,
-        password2:null,
-
+        data(){
+            Name:null,
+            email:null,
+            password:null,
+            password2:null,
+        }
     }
 </script>
 
