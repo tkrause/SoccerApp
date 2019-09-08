@@ -26,10 +26,12 @@
 <script>
     export default {
         data(){
-            Name:null,
-            email:null,
-            password:null,
-            password2:null,
+            return{
+                Name:null,
+                email:null,
+                password:null,
+                password2:null,
+            }
         }
     }
 </script>
