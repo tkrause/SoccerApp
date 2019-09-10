@@ -30,8 +30,10 @@
                 Name:null,
                 email:null,
                 password:null,
-                password2:null,
+                confirmPassword:null,
             }
+
+
         }
     }
 </script>
