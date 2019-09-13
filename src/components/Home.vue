@@ -26,6 +26,9 @@
 
     export default {
         name: "Home",
+        components: {
+            Teams
+        }
         components:{
             Overview,
             Schedule,
@@ -34,3 +37,9 @@
 
     }
 </script>
+
+<style>
+    .action-bar {
+        color: #ff9900;
+    }
+</style>
