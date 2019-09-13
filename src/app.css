@@ -1,0 +1,8 @@
+@import '../node_modules/nativescript-theme-core/css/core.light.android.css';
+@import '../node_modules/nativescript-theme-core/css/core.light.ios.css';
+
+@import './styles/theme.css';
+
+.text-white {
+    color: #ffffff;
+}

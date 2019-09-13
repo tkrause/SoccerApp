@@ -25,9 +25,17 @@ export default class ApiService {
             }
 
             return config;
-        }, function(err) {
+        }, err => {
             return Promise.reject(err);
-        });
+        })
+
+        this.client.interceptors.response.use(response => response, err => {
+            if (err.response.status === null) {
+                err.message = 'Server connection error'
+            }
+
+            return Promise.reject(err)
+        })
     }
 
     user() {
