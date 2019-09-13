@@ -26,9 +26,6 @@
 
     export default {
         name: "Home",
-        components: {
-            Teams
-        }
         components:{
             Overview,
             Schedule,
