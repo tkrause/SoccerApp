@@ -28,9 +28,3 @@
         }
     }
 </script>
-
-<style>
-    .action-bar {
-        color: #ff9900;
-    }
-</style>
