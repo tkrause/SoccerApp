@@ -1,8 +1,5 @@
-@import '../node_modules/nativescript-theme-core/css/core.light.android.css';
-@import '../node_modules/nativescript-theme-core/css/core.light.ios.css';
+@import '../node_modules/nativescript-theme-core/css/core.light.css';
+@import './assets/css/theme.css';
+@import './assets/css/font-awesome.css';
 
-@import './styles/theme.css';
-
-.text-white {
-    color: #ffffff;
-}
+/*@import '../node_modules/nativescript-theme-core/css/core.light.css';*/

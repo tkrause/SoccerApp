@@ -28,6 +28,7 @@
     "express": "^4.17.1",
     "nativescript-theme-core": "^1.0.6",
     "nativescript-vue": "^2.2.2",
+    "nativescript-vue-fonticon": "^1.0.3",
     "nativescript-vue-web": "^0.9.4",
     "serve-static": "^1.14.1",
     "tns-core-modules": "6.0.1",

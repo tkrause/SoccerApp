@@ -5,13 +5,16 @@
         <TabView
             class="tab-view"
             androidTabsPosition="bottom">
-            <TabViewItem title="Overview">
+
+            <TabViewItem class="fa" :title="'fa-home' | fonticon">
                 <Overview></Overview>
             </TabViewItem>
-            <TabViewItem title="Schedule">
-            <Schedule></Schedule>
+
+            <TabViewItem class="fa" :title="'fa-calendar' | fonticon">
+                <Schedule></Schedule>
             </TabViewItem>
-            <TabViewItem title="Roster">
+
+            <TabViewItem class="fa" :title="'fa-users' | fonticon">
                 <Roster></Roster>
             </TabViewItem>
         </TabView>
@@ -34,3 +37,9 @@
 
     }
 </script>
+
+<style scoped>
+    .tab-view {
+        tab-text-font-size: 18;
+    }
+</style>

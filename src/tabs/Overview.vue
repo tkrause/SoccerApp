@@ -7,7 +7,3 @@
         name: "Overview"
     }
 </script>
-
-<style scoped>
-
-</style>
