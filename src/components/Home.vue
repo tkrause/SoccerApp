@@ -17,9 +17,7 @@
                 android.systemIcon="ic_menu_add" android.position="actionBar" />
         </ActionBar>
 
-        <TabView
-            class="tab-view fa"
-            androidTabsPosition="bottom">
+        <TabView class="tab-view fa" androidTabsPosition="bottom">
 
             <TabViewItem :title="'fa-home' | fonticon">
                 <Overview></Overview>
@@ -29,7 +27,7 @@
                 <Schedule></Schedule>
             </TabViewItem>
 
-            <TabViewItem :title="'fa-user' | fonticon">
+            <TabViewItem :title="'fa-users' | fonticon">
                 <Roster :team="team"></Roster>
             </TabViewItem>
         </TabView>
@@ -73,11 +71,12 @@
 
 <style scoped>
     .tab-view {
-        tab-text-font-size: 18;
+        tab-text-font-size: 24;
     }
 
     .action-bar-icon {
         margin-left: 10;
         font-size: 30;
     }
+
 </style>

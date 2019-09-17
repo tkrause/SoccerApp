@@ -1,15 +1,19 @@
 <template>
     <ListView
             for="player in players"
-            class="list-group"
+            class="list-group body"
             separatorColor="transparent"
             @itemTap="onPlayerTap">
 
         <v-template>
-            <StackLayout class="list-group-item">
-                <Label class="body" :text="player | name" />
-                <Label class="body m-t-2 text-muted" :text="player.role | wordcase"></Label>
-            </StackLayout>
+            <GridLayout class="list-group-item" rows="auto" columns="auto, *">
+                <Label class="player-avatar" :text="player | toAvatar"></Label>
+
+                <StackLayout row="0" col="1" verticalAlignment="center">
+                    <Label :text="player | name" />
+                    <Label class="m-t-2 text-muted" :text="player.role | wordcase"></Label>
+                </StackLayout>
+            </GridLayout>
         </v-template>
     </ListView>
 </template>
@@ -35,6 +39,22 @@
         filters: {
             name(v) {
                 return `${v.name}`
+            },
+            toAvatar(p) {
+                if (p.role === 'coach')
+                    return 'C'
+
+                if (p.role === 'admin')
+                    return 'A'
+
+                if (! p.number) {
+                    // if it's a player and they don't have a number
+                    // get their initials and display those
+                    let matches = p.name.match(/\b(\w)/g);
+                    return matches.slice(0,2).join('')
+                }
+
+                return p.number
             }
         },
         async created() {
@@ -45,7 +65,18 @@
 </script>
 
 <style scoped>
-    .list-group-item {
+    .player-avatar {
+        text-align: center;
+        font-size: 20;
+        font-weight: bold;
 
+        padding-top: 10;
+        border-radius: 50%;
+        margin-right: 10;
+        width: 40;
+        height: 40;
+
+        background-color: #a2a2a2;
+        color: #f0f0f0;
     }
 </style>
