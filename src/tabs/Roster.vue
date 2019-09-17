@@ -38,7 +38,7 @@
         },
         filters: {
             name(v) {
-                return `${v.name}`
+                return `${v.user.name}`
             },
             toAvatar(p) {
                 if (p.role === 'coach')
@@ -47,14 +47,14 @@
                 if (p.role === 'admin')
                     return 'A'
 
-                if (! p.number) {
+                if (! p.jersey_number) {
                     // if it's a player and they don't have a number
                     // get their initials and display those
-                    let matches = p.name.match(/\b(\w)/g);
+                    let matches = p.user.name.match(/\b(\w)/g);
                     return matches.slice(0,2).join('')
                 }
 
-                return p.number
+                return p.jersey_number
             }
         },
         async created() {
