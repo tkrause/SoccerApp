@@ -1,6 +1,7 @@
 module.exports = {
   plugins: [
-    '@babel/plugin-syntax-dynamic-import'
+    '@babel/plugin-syntax-dynamic-import',
+    '@babel/plugin-proposal-optional-chaining'
   ],
   presets: [
     process.env.VUE_PLATFORM === 'web' ? '@vue/app' : {}, 

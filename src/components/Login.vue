@@ -67,7 +67,7 @@
             <Label class="login-label sign-up-label" @tap="toggleForm">
                 <FormattedString>
                     <Span :text="isLoggingIn ? 'Don’t have an account? ' : 'Already have an account?'"></Span>
-                    <Span :text="isLoggingIn ? 'Sign up' : ''" class="bold"></Span>
+                    <Span :text="isLoggingIn ? 'Sign up' : ''" class="font-weight-bold"></Span>
                 </FormattedString>
             </Label>
         </FlexboxLayout>
@@ -75,6 +75,9 @@
 </template>
 <script>
     import Home from "./Home";
+
+    import * as appSettings from "tns-core-modules/application-settings";
+    import TeamSelector from "./TeamSelector";
 
     export default {
         data() {
@@ -114,9 +117,31 @@
                 try {
                     await this.$api.login(this.user.email, this.user.password);
 
-                    this.$navigateTo(Home, {
-                        clearHistory: true
-                    })
+                    // now we're logged in
+                    // get the last team they were on
+                    let team = null
+                    if (appSettings.hasKey('lastTeam')) {
+                        let id = appSettings.getNumber('lastTeam')
+                        let response = await this.$api.team(id)
+                        team = response.data
+                    }
+
+                    // if they were viewing a team go the the home page,
+                    // otherwise team select
+                    // TODO: if they only have one team, just grab that one
+                    if (team) {
+                        this.$navigateTo(Home, {
+                            clearHistory: true,
+                            props: {
+                                team
+                            }
+                        })
+                    } else {
+                        this.$navigateTo(TeamSelector, {
+                            clearHistory: true
+                        })
+                    }
+
                 } catch (e) {
                     this.alert(e.message)
                     console.log(e);
@@ -124,7 +149,6 @@
                 } finally {
                     this.processing = false;
                 }
-
             },
 
             async register() {
