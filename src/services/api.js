@@ -5,7 +5,7 @@ export default class ApiService {
 
     constructor(opts = {}) {
         const defaults = {
-            baseURL: process.env.API_ENDPOINT || 'http://10.0.2.2:3001',
+            baseURL: process.env.VUE_APP_API_ENDPOINT || 'http://10.0.2.2:3001',
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Accept': 'application/json',
@@ -65,5 +65,17 @@ export default class ApiService {
 
     register(data) {
         return this.client.post('/users', data)
+    }
+
+    teams() {
+        return this.client.get('/teams')
+    }
+
+    team(id) {
+        return this.client.get(`/teams/${id}`)
+    }
+
+    teamMembers(id) {
+        return this.client.get(`/teams/${id}/members`)
     }
 }

@@ -20,6 +20,10 @@ Vue.use(FontIcon, {
   }
 })
 
+Vue.filter('wordcase', v => {
+  return v.toLowerCase().replace(/\b[a-z]/g, l => l.toUpperCase());
+})
+
 const api = new ApiService()
 Vue.prototype.$api = api
 
