@@ -5,16 +5,13 @@
         <TabView
             class="tab-view"
             androidTabsPosition="bottom">
-
-            <TabViewItem class="fa" :title="'fa-home' | fonticon">
+            <TabViewItem title="Overview">
                 <Overview></Overview>
             </TabViewItem>
-
-            <TabViewItem class="fa" :title="'fa-calendar' | fonticon">
-                <Schedule></Schedule>
+            <TabViewItem title="Schedule">
+            <Schedule></Schedule>
             </TabViewItem>
-
-            <TabViewItem class="fa" :title="'fa-users' | fonticon">
+            <TabViewItem title="Roster">
                 <Roster></Roster>
             </TabViewItem>
         </TabView>
@@ -29,6 +26,7 @@
 
     export default {
         name: "Home",
+
         components:{
             Overview,
             Schedule,
@@ -38,8 +36,8 @@
     }
 </script>
 
-<style scoped>
-    .tab-view {
-        tab-text-font-size: 18;
+<style>
+    .action-bar {
+        color: #ff9900;
     }
 </style>
