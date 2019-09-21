@@ -24,7 +24,7 @@
             </TabViewItem>
 
             <TabViewItem :title="'fa-calendar' | fonticon">
-                <Schedule></Schedule>
+                <Schedule :team="team"></Schedule>
             </TabViewItem>
 
             <TabViewItem :title="'fa-users' | fonticon">

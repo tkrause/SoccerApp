@@ -75,6 +75,14 @@ export default class ApiService {
         return this.client.get(`/teams/${id}`)
     }
 
+    events() {
+        return this.client.get(`/events`)
+    }
+
+    eventsForTeam(id) {
+        return this.client.get(`/teams/${id}/events`)
+    }
+
     teamMembers(id) {
         return this.client.get(`/teams/${id}/members`)
     }

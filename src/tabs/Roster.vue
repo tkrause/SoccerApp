@@ -7,7 +7,7 @@
 
         <v-template>
             <GridLayout class="list-group-item" rows="auto" columns="auto, *">
-                <Label class="player-avatar" :text="player | toAvatar"></Label>
+                <Label row="0" col="0" class="player-avatar" :text="player | toAvatar"></Label>
 
                 <StackLayout row="0" col="1" verticalAlignment="center">
                     <Label :text="player | name" />
