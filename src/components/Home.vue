@@ -17,7 +17,7 @@
                 android.systemIcon="ic_menu_add" android.position="actionBar" />
         </ActionBar>
 
-        <TabView class="tab-view fa" androidTabsPosition="bottom">
+        <TabView class="tab-view fa" v-model="selectedIndex" androidTabsPosition="bottom">
 
             <TabViewItem :title="'fa-home' | fonticon">
                 <Overview></Overview>
@@ -40,6 +40,7 @@
     import Roster from "../tabs/Roster";
 
     import TeamSelector from "./TeamSelector";
+    import AddToRoster from "./AddToRoster";
 
     export default {
         components:{
@@ -56,6 +57,7 @@
         data() {
             return {
                 teams: [],
+                selectedIndex: 0,
             }
         },
         methods: {
@@ -63,6 +65,13 @@
                 this.$navigateTo(TeamSelector)
             },
             onAdd() {
+                console.log('index', this.selectedIndex)
+                this.$navigateTo(AddToRoster, {
+                    props: {
+                        team: this.team,
+                    }
+                })
+
                 console.log('onAdd()')
             },
         },
