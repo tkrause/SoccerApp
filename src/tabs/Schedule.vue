@@ -1,11 +1,21 @@
 <template>
-    <ListView class="list-group" for="e in events" @itemTap="onItemTap">
+    <ListView class="list-group"
+              for="e in events"
+              separatorColor="transparent"
+              @itemTap="onItemTap">
         <v-template>
             <GridLayout class="list-group-item" rows="auto" columns="auto, *">
 
-                <StackLayout class="m-r-10 event-box" row="0" col="0" horizontalAlignment="center" verticalAlignment="center" orientation="horizontal">
-                    <StackLayout class="m-r-4 text-month" verticalAlignment="center">
-                        <Label v-for="(c, index) in toMonth(e.start_at)" :key="index" :text="c"></Label>
+                <StackLayout class="m-r-10 event-box"
+                             row="0" col="0"
+                             horizontalAlignment="center" verticalAlignment="center"
+                             orientation="horizontal">
+
+                    <StackLayout class="m-r-4" verticalAlignment="center">
+                        <Label v-for="(c, index) in toMonth(e.start_at)"
+                               :key="index"
+                               :text="c"
+                               class="text-month"></Label>
                     </StackLayout>
 
                     <StackLayout verticalAlignment="center" horizontalAlignment="center">
@@ -16,8 +26,15 @@
                 </StackLayout>
 
                 <StackLayout row="0" col="1" verticalAlignment="center">
-                    <Label class="font-weight-bold" :text="e.start_at | time"></Label>
-                    <Label v-if="e.event_type === 'game'" class="text-muted">vs. {{ getTeamVs(e) }}</Label>
+                    <Label>
+                        <FormattedString>
+                            <Span :class="['fa', e.event_type === 'game' ? 'icon-game' : 'icon-event']"
+                                  :text="e.event_type === 'game' ? 'fa-futbol-o' : 'fa-calendar-o' | fonticon"></Span>
+                            <Span text=" "></Span>
+                            <Span class="font-weight-bold" :text="e.start_at | time"></Span>
+                        </FormattedString>
+                    </Label>
+                    <Label v-if="e.event_type === 'game'" class="text-muted m-y-2">vs. {{ getTeamVs(e) }}</Label>
                     <Label class="text-muted" :text="e.location_name"></Label>
                 </StackLayout>
 
@@ -93,7 +110,7 @@
         height: 60;
     }
 
-    .text-month Label {
+    .text-month {
         font-weight: bold;
         font-size: 12;
         color: #283237;
@@ -110,6 +127,14 @@
         font-size: 14;
         text-transform: uppercase;
         color: #7E8487;
+    }
+
+    .icon-game {
+        color: #B02F26;
+    }
+
+    .icon-event {
+        color: #276bb0;
     }
     /*.event-box Label {*/
     /*    color: #262626;*/
