@@ -8,6 +8,10 @@
     color: #ffe6e6;
 }
 
+.action-item Label {
+    color: #fff;
+}
+
 .action-bar {
     background-color: #d34c46;
 }

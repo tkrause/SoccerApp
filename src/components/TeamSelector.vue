@@ -1,7 +1,7 @@
 <template>
     <Page class="page">
         <ActionBar class="action-bar" title="Select Team">
-            <NavigationButton text="Back" android.systemIcon="ic_menu_back" @tap="onGoBack" />
+            <NavigationButton text="Back" icon="res://back" @tap="onGoBack" />
         </ActionBar>
 
         <ListView

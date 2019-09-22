@@ -12,12 +12,15 @@
             </StackLayout>
 
             <ActionItem
+                v-show="selectedIndex !== 0"
+                icon="res://add"
                 @tap="onAdd"
-                ios.systemIcon="4" ios.position="left"
-                android.systemIcon="ic_menu_add" android.position="actionBar" />
+                android.position="actionBar" />
         </ActionBar>
 
-        <TabView class="tab-view fa" v-model="selectedIndex" androidTabsPosition="bottom">
+        <TabView class="tab-view fa"
+                 v-model="selectedIndex"
+                 androidTabsPosition="bottom">
 
             <TabViewItem :title="'fa-home' | fonticon">
                 <Overview></Overview>
@@ -65,14 +68,16 @@
                 this.$navigateTo(TeamSelector)
             },
             onAdd() {
-                console.log('index', this.selectedIndex)
-                this.$navigateTo(AddToRoster, {
-                    props: {
-                        team: this.team,
-                    }
-                })
-
-                console.log('onAdd()')
+                // navigate to the right component
+                if (this.selectedIndex === 1) {
+                    // nav to add event / game
+                } else if (this.selectedIndex === 2) {
+                    this.$navigateTo(AddToRoster, {
+                        props: {
+                            team: this.team,
+                        }
+                    })
+                }
             },
         },
     }

@@ -12,8 +12,8 @@
                              orientation="horizontal">
 
                     <StackLayout class="m-r-4" verticalAlignment="center">
-                        <Label v-for="(c, index) in toMonth(e.start_at)"
-                               :key="index"
+                        <Label v-for="c in toMonth(e.start_at)"
+                               :key="c"
                                :text="c"
                                class="text-month"></Label>
                     </StackLayout>
