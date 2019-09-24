@@ -27,6 +27,7 @@
     "core-js": "^2.6.5",
     "express": "^4.17.1",
     "moment": "^2.24.0",
+    "nativescript-modal-datetimepicker": "^1.2.0",
     "nativescript-theme-core": "^1.0.6",
     "nativescript-vue": "^2.2.2",
     "nativescript-vue-fonticon": "^1.0.3",
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/traverse": "^7.4.5",
     "@vue/cli-plugin-babel": "^3.11.0",

@@ -44,6 +44,7 @@
 
     import TeamSelector from "./TeamSelector";
     import AddToRoster from "./AddToRoster";
+    import AddEvent from "./AddEvent";
 
     export default {
         components:{
@@ -67,9 +68,14 @@
             onTeamSelect() {
                 this.$navigateTo(TeamSelector)
             },
-            onAdd() {
+            async onAdd() {
                 // navigate to the right component
                 if (this.selectedIndex === 1) {
+                    this.$navigateTo(AddEvent, {
+                        props: {
+                            team: this.team,
+                        }
+                    })
                     // nav to add event / game
                 } else if (this.selectedIndex === 2) {
                     this.$navigateTo(AddToRoster, {
