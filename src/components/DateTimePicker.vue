@@ -1,5 +1,5 @@
 <template>
-    <TextField :text="date | calendarDate"
+    <TextField :text="value | calendarDate"
                class="input input-border input-rounded"
                @tap="onSelect"
                :editable="false"
@@ -17,12 +17,7 @@
                 type: String,
                 default: '',
             },
-            style: { }
-        },
-        data() {
-            return {
-                date: null,
-            }
+            value: { }
         },
         filters: {
             calendarDate(v) {
@@ -48,13 +43,15 @@
                         startingMinute: this.date?.getMinutes() ?? 0,
                     })
 
-                    this.date = new Date(
+                    let date = new Date(
                         day.year,
                         day.month - 1, // yes trust me this is ok
                         day.day,
                         time.hour,
                         time.minute
                     );
+
+                    this.$emit('input', date)
                 } catch (err) { }
             }
         }
