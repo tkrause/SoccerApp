@@ -23,11 +23,12 @@
                  androidTabsPosition="bottom">
 
             <TabViewItem :title="'fa-home' | fonticon">
-                <Overview></Overview>
+                <Overview :team="team" ></Overview>
+
             </TabViewItem>
 
             <TabViewItem :title="'fa-calendar' | fonticon">
-                <Schedule :team="team"></Schedule>
+                <Schedule :team="team" ></Schedule>
             </TabViewItem>
 
             <TabViewItem :title="'fa-users' | fonticon">

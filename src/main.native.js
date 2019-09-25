@@ -12,6 +12,11 @@ Vue.config.silent = false
 // disabled in template due to typing issue for Typescript projects....NEEDS TO BE FIXED
 // Vue.config.debug = true;
 
+Vue.registerElement(
+    'CardView',
+    () => require('@nstudio/nativescript-cardview').CardView
+);
+
 // enable icon fonts
 Vue.use(FontIcon, {
   paths: {
