@@ -23,6 +23,7 @@
     "setup-webpack-config": "node ./node_modules/vue-cli-plugin-nativescript-vue/lib/scripts/webpack-maintenance pre"
   },
   "dependencies": {
+    "@nstudio/nativescript-cardview": "^1.0.0",
     "axios": "^0.19.0",
     "core-js": "^2.6.5",
     "express": "^4.17.1",
