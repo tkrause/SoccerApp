@@ -67,6 +67,12 @@ export default class ApiService {
         return this.client.post('/users', data)
     }
 
+    userSearch(email) {
+        return this.client.post(`/users/search`, {
+            email,
+        })
+    }
+
     teams() {
         return this.client.get('/teams')
     }

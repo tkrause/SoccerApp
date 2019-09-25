@@ -75,7 +75,7 @@
         },
         methods: {
             onItemTap(args) {
-                console.log('Item with index: ' + args.index + ' tapped')
+                // console.log('Item with index: ' + args.index + ' tapped')
             },
             getTeamVs(event) {
                 if(this.team === event.home_team_id)

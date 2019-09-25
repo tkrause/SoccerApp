@@ -71,12 +71,12 @@
         font-weight: bold;
 
         padding-top: 10;
-        border-radius: 50%;
+        border-radius: 8;
         margin-right: 10;
         width: 40;
         height: 40;
 
-        background-color: #a2a2a2;
-        color: #f0f0f0;
+        background-color: #F2F3F4;
+        color: #283237;
     }
 </style>

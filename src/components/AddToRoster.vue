@@ -5,13 +5,13 @@
         </ActionBar>
 
         <StackLayout class="form">
-            <TextField hint="Email"
-                       class="input input-rounded input-border"
-                       v-model="form.email"/>
-
-            <TextField hint="Name"
-                       class="input input-rounded input-border"
-                       v-model="form.name"/>
+            <StackLayout>
+                <TextField hint="Select a User"
+                           editable="false"
+                           :text="name"
+                           @tap="onSelectUser"
+                           class="input input-rounded input-border"></TextField>
+            </StackLayout>
 
             <Label :text="form.role"
                    class="input input-rounded input-rounded"
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+    import SelectUser from "./SelectUser";
+
     export default {
         props: {
             team: {
@@ -28,11 +30,11 @@
                 required: true,
             }
         },
+
         data() {
             return {
                 form: {
-                    email: null,
-                    name: null,
+                    user: null,
                     role: 'Player',
                 },
                 roles: [
@@ -42,17 +44,25 @@
                 ],
             }
         },
+        computed: {
+            name() {
+                return this.form.user?.name
+            }
+        },
         methods: {
             onBack() {
                 this.$navigateBack();
             },
+
             async onSelectRole() {
                 try {
                     let result = await action("Select a Role", "Cancel", this.roles)
-                    console.log(result)
                     this.form.role = result
                 } catch (e) { }
             },
+            async onSelectUser() {
+                this.form.user = await this.$showModal(SelectUser, {fullscreen: true})
+            }
         }
     }
 </script>

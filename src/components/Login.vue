@@ -144,7 +144,6 @@
 
                 } catch (e) {
                     this.alert(e.message);
-                    console.log(e);
                     // this.alert("Unfortunately we could not find your account.")
                 } finally {
                     this.processing = false;
