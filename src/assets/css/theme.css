@@ -186,6 +186,8 @@
 
 .input {
     font-size: 14;
+    padding: 8;
+    margin-bottom: 20;
 }
 
 .input-rounded {
