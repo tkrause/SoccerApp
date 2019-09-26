@@ -93,18 +93,19 @@
                 result.selected = ! result.selected
 
                 this.$set(this.results, index, result)
-                console.log('is selected', this.isSelected)
-                console.log('is invite', this.isInvite)
             },
 
-            onSubmit() {
+            async onSubmit() {
                 if (! this.isInvite) {
-                    this.$modal.close(
+                    await this.$modal.close(
                         this.results.find(i => i.id === this.selected)
                     )
                 } else {
-                    // TODO: add dialog to get first and last name
-                    // also make it not look like shit
+                    let result = await prompt("Enter the user's name")
+                    if (result.result === true) {
+                        let name = result.text
+                        // TODO: create the user
+                    }
                 }
             }
         }

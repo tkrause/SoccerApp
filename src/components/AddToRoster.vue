@@ -61,7 +61,10 @@
                 } catch (e) { }
             },
             async onSelectUser() {
-                this.form.user = await this.$showModal(SelectUser, {fullscreen: true})
+                this.form.user = await this.$showModal(SelectUser, {
+                    transition: 'slideTop',
+                    fullscreen: true,
+                })
             }
         }
     }
