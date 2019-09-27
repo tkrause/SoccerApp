@@ -102,9 +102,19 @@
                     )
                 } else {
                     let result = await prompt("Enter the user's name")
+
                     if (result.result === true) {
                         let name = result.text
-                        // TODO: create the user
+
+                        try {
+                            let { data: user } = await this.$api.invite({
+                                email: this.email,
+                                name,
+                            })
+                            await this.$modal.close(user)
+                        } catch (e) {
+                            alert(e.message)
+                        }
                     }
                 }
             }
