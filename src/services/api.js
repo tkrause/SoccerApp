@@ -94,11 +94,11 @@ export default class ApiService {
     }
 
     nextEvent(teamId) {
-        return this.client.get(`/teams/${id}/events/next`)
+        return this.client.get(`/teams/${teamId}/events/next`)
     }
 
     recentEvent(teamId) {
-        return this.client.get(`/teams/${id}/events/recent`)
+        return this.client.get(`/teams/${teamId}/events/recent`)
     }
 
     teamMembers(id) {

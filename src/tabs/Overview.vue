@@ -2,34 +2,40 @@
     <scroll-view>
 
         <stacklayout>
-            <CardView class="cards" >
+            <CardView class="cards" radius="8">
                 <stack-layout orientation="vertical">
-                    <action-bar class="action-bar" title="Current Game Stats"></action-bar>
-                    <label class="stats" :text="team.name" ></label>
-                    <label class="stats">Team Number: {{team.team_number}}</label>
-                    <label class="stats" text="League Placement: "></label>
-                    <label class="stats">Number of wins: {{team.wins}}</label>
-                    <label class="stats">Number of losses: {{team.losses}}</label>
+                    <Label class="heading" text="Team Statistics"></Label>
+                    <Label class="stats" :text="team.name" ></Label>
+                    <Label class="stats">Team Number: {{ team.team_number }}</Label>
+                    <Label class="stats" text="League Placement: "></Label>
+                    <Label class="stats">Number of wins: {{ team.wins }}</Label>
+                    <Label class="stats">Number of losses: {{ team.losses }}</Label>
                 </stack-layout>
             </CardView>
-            <CardView class="cards">
+            <CardView class="cards" radius="8">
                 <stack-layout orientation="vertical">
-                    <action-bar class="action-bar" title="Most Recent Game"></action-bar>
-                    <label class="recent" > team vs team</label>
-                    <label class="team" text="Score:  "></label>
-<!--                    <label class="recent" >{{event.home_team.name}} vs {{event.away_team.name}}</label>-->
-                    <label></label>
+                    <Label class="heading" text="Most Recent Game"></Label>
+                    <Label class="recent">team vs team</Label>
+                    <Label class="team" text="Score:  "></Label>
+<!--                    <Label class="recent" >{{event.home_team.name}} vs {{event.away_team.name}}</Label>-->
+                    <Label></Label>
 
 
                 </stack-layout>
 
             </CardView>
-            <CardView class="cards" >
-                <stack-layout orientation="vertical">
-                    <action-bar class="action-bar" title="Upcoming Event"></action-bar>
-                    <label>{{next_event.event_type}}</label>
-<!--                    <label v-if="next_event.event_type === 'game'">{{next_event.home_team.name}} vs {{next_event.away_team.name}}</label>-->
-                </stack-layout>
+            <CardView class="cards" radius="8">
+                <StackLayout orientation="vertical">
+                    <Label class="heading" text="Upcoming Event"></Label>
+                    <Label>{{ nextEvent.event_type }}</Label>
+                    <Label v-if="nextEvent.event_type === 'game'">
+                        <FormattedText>
+                            <Span>{{ nextEvent.home_team.name }}</Span>
+                            <Span> vs </Span>
+                            <Span>{{ nextEvent.away_team.name }}</Span>
+                        </FormattedText>
+                    </Label>
+                </StackLayout>
             </CardView>
 
         </stacklayout>
@@ -45,35 +51,35 @@ export default {
             type: Object,
             required: true,
         },
-
-        data() {
-            return {
-                recent_game: {},
-                next_event: {},
-                loading: false,
-            }
+    },
+    data() {
+        return {
+            recentGame: {},
+            nextEvent: {},
+            loading: false,
         }
     },
     methods: {
-        async created() {
-            this.loading = true
 
-            try {
-                let { data: recent_game } = await this.$api.recentEvent(this.team.id)
-                this.recent_game = recent_game
-                let { data: next_event } = await this.$api.nextEvent(this.team.id)
-                console.log(this.next_event)
-                this.next_event = next_event
-            }
-            finally {
-                this.loading = false
-            }
+    },
+    async created() {
+        this.loading = true
+
+        try {
+            let { data: recentGame } = await this.$api.recentEvent(this.team.id)
+            this.recentGame = recentGame
+            let { data: nextEvent } = await this.$api.nextEvent(this.team.id)
+            this.nextEvent = nextEvent
+        } catch(e) {
+            alert(e.message)
+        } finally {
+            this.loading = false
         }
     }
 }
 </script>
 <style scoped>
-    .action-bar{
+    .action-bar {
         text-align: center;
         padding-left: 0px !important;
         padding-right: 0px !important;
@@ -81,11 +87,19 @@ export default {
         padding-top: 0px;
     }
 
+    .heading {
+        padding: 24;
+        background-color: #276bb0;
+        font-size: 24;
+        color: #fff;
+        font-weight: bold;
+    }
+
     .cards{
-        border-radius:50px !important;
+        /*border-radius:50px !important;*/
         margin : 10;
-        elevation : 30;
-        radius : 1;
+        /*elevation : 30;*/
+        /*radius : 1;*/
         padding: 10px;
         padding-left: 0px ;
         padding-right: 0px;
