@@ -1,27 +1,24 @@
 <template>
-    <scroll-view>
-
-        <stacklayout>
+    <ScrollView>
+        <StackLayout>
             <CardView class="cards" radius="8">
-                <stack-layout orientation="vertical">
+                <StackLayout orientation="vertical">
                     <Label class="heading" text="Team Statistics"></Label>
                     <Label class="stats" :text="team.name" ></Label>
                     <Label class="stats">Team Number: {{ team.team_number }}</Label>
                     <Label class="stats" text="League Placement: "></Label>
                     <Label class="stats">Number of wins: {{ team.wins }}</Label>
                     <Label class="stats">Number of losses: {{ team.losses }}</Label>
-                </stack-layout>
+                </StackLayout>
             </CardView>
             <CardView class="cards" radius="8">
-                <stack-layout orientation="vertical">
+                <StackLayout orientation="vertical">
                     <Label class="heading" text="Most Recent Game"></Label>
                     <Label class="recent">team vs team</Label>
                     <Label class="team" text="Score:  "></Label>
 <!--                    <Label class="recent" >{{event.home_team.name}} vs {{event.away_team.name}}</Label>-->
                     <Label></Label>
-
-
-                </stack-layout>
+                </StackLayout>
 
             </CardView>
             <CardView class="cards" radius="8">
@@ -38,8 +35,8 @@
                 </StackLayout>
             </CardView>
 
-        </stacklayout>
-    </scroll-view>
+        </StackLayout>
+    </ScrollView>
 
 </template>
 
