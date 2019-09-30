@@ -32,7 +32,7 @@
                             <Span>{{ nextEvent.away_team.name }}</Span>
                         </FormattedText>
                     </Label>
-                    <Label class="stats" >Date: {{ nextEvent.start_at }}</Label>
+                    <Label class="stats" >Date: {{ nextEvent.start_at | date }}</Label>
                     <Label class="stats">Location: {{ nextEvent.location_name }}</Label>
                     <Label class="stats">Address: {{ nextEvent.location_address }}</Label>
                 </StackLayout>
@@ -63,13 +63,8 @@ export default {
         }
     },
     filters: {
-        moment(date) {
+        date(date) {
             return moment(date).format('MMMM Do YYYY, h:mm A');
-        }
-    },
-    methods: {
-        moment() {
-            return moment();
         }
     },
     async created() {
