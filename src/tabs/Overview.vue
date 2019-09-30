@@ -61,13 +61,14 @@ export default {
             nextEvent: {},
             loading: false,
         }
-    },filters: {
-        moment: function (date) {
+    },
+    filters: {
+        moment(date) {
             return moment(date).format('MMMM Do YYYY, h:mm A');
         }
     },
     methods: {
-        moment: function () {
+        moment() {
             return moment();
         }
     },
