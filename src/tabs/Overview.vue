@@ -14,9 +14,9 @@
             <CardView class="cards" radius="8">
                 <StackLayout orientation="vertical">
                     <Label class="heading" text="Most Recent Game"></Label>
-                    <Label class="recent">team vs team</Label>
+                    <Label class="stats">team vs team</Label>
                     <Label class="team" text="Score:  "></Label>
-<!--                    <Label class="recent" >{{event.home_team.name}} vs {{event.away_team.name}}</Label>-->
+<!--                    <Label class="recent" >{{recentGame.home_team.name}} vs {{recentGame.away_team.name}}</Label>-->
                     <Label></Label>
                 </StackLayout>
 
@@ -24,7 +24,7 @@
             <CardView class="cards" radius="8">
                 <StackLayout orientation="vertical">
                     <Label class="heading" text="Upcoming Event"></Label>
-                    <Label>{{ nextEvent.event_type }}</Label>
+                    <Label class="stats" >Next {{ nextEvent.event_type }} info </Label>
                     <Label v-if="nextEvent.event_type === 'game'">
                         <FormattedText>
                             <Span>{{ nextEvent.home_team.name }}</Span>
@@ -32,6 +32,9 @@
                             <Span>{{ nextEvent.away_team.name }}</Span>
                         </FormattedText>
                     </Label>
+                    <Label class="stats" >Date: {{nextEvent.start_at}}</Label>
+                    <Label class="stats">Location: {{nextEvent.location_name}}</Label>
+                    <Label class="stats">Address: {{nextEvent.location_address}}</Label>
                 </StackLayout>
             </CardView>
 
@@ -41,7 +44,7 @@
 </template>
 
 <script>
-
+    import moment from "moment";
 export default {
     props: {
         team: {
@@ -55,9 +58,15 @@ export default {
             nextEvent: {},
             loading: false,
         }
+    },filters: {
+        moment: function (date) {
+            return moment(date).format('MMMM Do YYYY, h:mm A');
+        }
     },
     methods: {
-
+        moment: function () {
+            return moment();
+        }
     },
     async created() {
         this.loading = true
@@ -76,27 +85,17 @@ export default {
 }
 </script>
 <style scoped>
-    .action-bar {
-        text-align: center;
-        padding-left: 0px !important;
-        padding-right: 0px !important;
-        padding-bottom: 15px;
-        padding-top: 0px;
-    }
 
     .heading {
-        padding: 24;
-        background-color: #276bb0;
+        padding: 15;
+        background-color: rgba(38, 164, 176, 0.99);
         font-size: 24;
         color: #fff;
         font-weight: bold;
     }
 
     .cards{
-        /*border-radius:50px !important;*/
         margin : 10;
-        /*elevation : 30;*/
-        /*radius : 1;*/
         padding: 10px;
         padding-left: 0px ;
         padding-right: 0px;
@@ -106,8 +105,8 @@ export default {
     .stats{
         padding-left: 25px;
         padding-right: 25px !important;
-        padding-bottom: 0px;
-        padding-top: 15px;
+        padding-bottom: 7px;
+        padding-top: 7px;
     }
     .recent{
         text-align:center;
