@@ -14,10 +14,10 @@
             <CardView class="cards" radius="8">
                 <StackLayout orientation="vertical">
                     <Label class="heading" text="Most Recent Game"></Label>
-<!--                    <Label class="pastgame">{{recentGame.home_team.name}} vs {{recentGame.away_team.name}}</Label>-->
-                    <Label class="pastgame">{{recentGame.home_score}} - {{recentGame.away_score}}</Label>
-                    <Label class="pastgame">Location: {{recentGame.location_name}}</Label>
-                    <Label class="pastgame">Location: {{recentGame.location_address}}</Label>
+                    <Label class="pastgame">{{ recentGame.home_team.name }} vs {{ recentGame.away_team.name }}</Label>
+                    <Label class="pastgame">{{ recentGame.home_score }} - {{ recentGame.away_score }}</Label>
+                    <Label class="pastgame">Location: {{ recentGame.location_name }}</Label>
+                    <Label class="pastgame">Location: {{ recentGame.location_address }}</Label>
                 </StackLayout>
 
             </CardView>
@@ -32,9 +32,9 @@
                             <Span>{{ nextEvent.away_team.name }}</Span>
                         </FormattedText>
                     </Label>
-                    <Label class="stats" >Date: {{nextEvent.start_at}}</Label>
-                    <Label class="stats">Location: {{nextEvent.location_name}}</Label>
-                    <Label class="stats">Address: {{nextEvent.location_address}}</Label>
+                    <Label class="stats" >Date: {{ nextEvent.start_at }}</Label>
+                    <Label class="stats">Location: {{ nextEvent.location_name }}</Label>
+                    <Label class="stats">Address: {{ nextEvent.location_address }}</Label>
                 </StackLayout>
             </CardView>
 
@@ -54,7 +54,10 @@ export default {
     },
     data() {
         return {
-            recentGame: {},
+            recentGame: {
+                home_team: {},
+                away_team: {},
+            },
             nextEvent: {},
             loading: false,
         }
