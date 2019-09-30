@@ -14,10 +14,10 @@
             <CardView class="cards" radius="8">
                 <StackLayout orientation="vertical">
                     <Label class="heading" text="Most Recent Game"></Label>
-                    <Label class="stats">team vs team</Label>
-                    <Label class="team" text="Score:  "></Label>
-<!--                    <Label class="recent" >{{recentGame.home_team.name}} vs {{recentGame.away_team.name}}</Label>-->
-                    <Label></Label>
+<!--                    <Label class="pastgame">{{recentGame.home_team.name}} vs {{recentGame.away_team.name}}</Label>-->
+                    <Label class="pastgame">{{recentGame.home_score}} - {{recentGame.away_score}}</Label>
+                    <Label class="pastgame">Location: {{recentGame.location_name}}</Label>
+                    <Label class="pastgame">Location: {{recentGame.location_address}}</Label>
                 </StackLayout>
 
             </CardView>
@@ -101,7 +101,12 @@ export default {
         padding-right: 0px;
 
     }
-
+    .pastgame{
+        text-align:center;
+        padding-bottom: 7px;
+        padding-top: 7px;
+    }
+    
     .stats{
         padding-left: 25px;
         padding-right: 25px !important;
