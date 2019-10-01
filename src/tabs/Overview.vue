@@ -1,4 +1,4 @@
-<template>
+<template xmlns:font-weight="">
     <ScrollView>
         <StackLayout>
             <CardView class="cards" radius="8">
@@ -7,14 +7,14 @@
                     <Label class="stats" :text="team.name" ></Label>
                     <Label class="stats">Team Number: {{ team.team_number }}</Label>
                     <Label class="stats" text="League Placement: "></Label>
-                    <Label class="stats">Number of wins: {{ team.wins }}</Label>
-                    <Label class="stats">Number of losses: {{ team.losses }}</Label>
+                    <Label class="stats">Number of Wins: {{ team.wins }}</Label>
+                    <Label class="stats">Number of Losses: {{ team.losses }}</Label>
                 </StackLayout>
             </CardView>
             <CardView class="cards" radius="8">
                 <StackLayout orientation="vertical">
                     <Label class="heading" text="Most Recent Game"></Label>
-                    <Label class="pastgame">{{ recentGame.home_team.name }} vs {{ recentGame.away_team.name }}</Label>
+                    <Label class="pastgame" >{{ recentGame.home_team.name }} vs {{ recentGame.away_team.name }}</Label>
                     <Label class="pastgame">{{ recentGame.home_score }} - {{ recentGame.away_score }}</Label>
                     <Label class="pastgame">Location: {{ recentGame.location_name }}</Label>
                     <Label class="pastgame">Location: {{ recentGame.location_address }}</Label>
@@ -104,6 +104,7 @@ export default {
         text-align:center;
         padding-bottom: 7px;
         padding-top: 7px;
+        font-weight: bold;
     }
     
     .stats{
@@ -111,6 +112,7 @@ export default {
         padding-right: 25px !important;
         padding-bottom: 7px;
         padding-top: 7px;
+        font-weight: bold
     }
     .recent{
         text-align:center;

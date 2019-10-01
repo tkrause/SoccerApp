@@ -11,7 +11,7 @@
                            keyboardType="email"
                            autocorrect="false"
                            @textChange="onEmailChanged"
-                           v-model="email"/>
+                           v-model="email"></TextField>
 
                 <ListView for="result in results"
                           class="list-group body"
