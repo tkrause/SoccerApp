@@ -18,8 +18,8 @@
                           separatorColor="transparent"
                           @itemTap="onSelectUser">
                     <v-template>
-                        <StackLayout :class="{ 'item-selected': selected === result.id }">
-                            <Label :text="result.name"></Label>
+                        <StackLayout :class="{ 'item': true, 'item-selected': selected === result.id }">
+                            <Label class="font-weight-bold" :text="result.name"></Label>
                             <Label :text="result.email"></Label>
                         </StackLayout>
                     </v-template>
@@ -124,10 +124,15 @@
 
 <style scoped>
     .item-selected {
-        background-color: #B02F26;
+        background-color: #F2F3F4;
+        border-radius: 8;
+    }
+
+    .item {
+        padding: 6;
     }
 
     .item-selected Label {
-        color: #ffe6e6;
+        color: #283237;
     }
 </style>
