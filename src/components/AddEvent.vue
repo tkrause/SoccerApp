@@ -5,13 +5,6 @@
         </ActionBar>
 
         <StackLayout class="form">
-            <TextField hint="Select type of Event"
-                       editable="false"
-                       :text="name"
-                       @tap="onSelectEventType"
-                       class="input input-rounded input-border"></TextField>
-            <!--         You can delete this line and the label below it :)-->
-            <Label :text="form.start_at"></Label>
             <DateTimePicker v-model="form.start_at" title="Date"></DateTimePicker>
             <Button text="Create" @tap="onButtonTap"></Button>
 
@@ -31,19 +24,17 @@
             team: {
                 type: Object,
                 required: true,
+            },
+            eventType: {
+                type: String,
+                required: true,
             }
         },
         data() {
             return {
                 form: {
                     start_at: null,
-                    event_type:null
                 },
-                types: [
-                    'Game',
-                    'Event',
-
-                ],
             }
         },
         methods: {
@@ -53,12 +44,6 @@
             onBack() {
                 this.$navigateBack();
             },
-            async onSelectEventType() {
-                try {
-                    let result = await action("Select a Event Type", "Cancel", this.types)
-                    this.form.event_type = result
-                } catch (e) { }
-            }//})
         }
     }
 </script>

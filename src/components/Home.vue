@@ -72,11 +72,21 @@
             async onAdd() {
                 // navigate to the right component
                 if (this.selectedIndex === 1) {
-                    this.$navigateTo(AddEvent, {
-                        props: {
-                            team: this.team,
-                        }
-                    })
+                    try {
+                        let eventType = await action("Select a Event Type", "Cancel",  [
+                            'Game',
+                            'Event',
+                        ])
+
+                        this.$navigateTo(AddEvent, {
+                            props: {
+                                team: this.team,
+                                eventType,
+                            }
+                        })
+
+                    } catch (e) { }
+
                     // nav to add event / game
                 } else if (this.selectedIndex === 2) {
                     this.$navigateTo(AddToRoster, {

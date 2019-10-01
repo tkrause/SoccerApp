@@ -26,11 +26,11 @@
                     <Label class="heading" text="Upcoming Event"></Label>
                     <Label class="stats" >Next {{ nextEvent.event_type }} info </Label>
                     <Label v-if="nextEvent.event_type === 'game'">
-                        <FormattedText>
+                        <FormattedString>
                             <Span>{{ nextEvent.home_team.name }}</Span>
                             <Span> vs </Span>
                             <Span>{{ nextEvent.away_team.name }}</Span>
-                        </FormattedText>
+                        </FormattedString>
                     </Label>
                     <Label class="stats" >Date: {{ nextEvent.start_at | date }}</Label>
                     <Label class="stats">Location: {{ nextEvent.location_name }}</Label>
