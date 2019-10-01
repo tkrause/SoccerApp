@@ -87,7 +87,7 @@ export default {
 
     .heading {
         padding: 15;
-        background-color: rgba(38, 164, 176, 0.99);
+        background-color: rgba(176, 71, 46, 0.99);
         font-size: 24;
         color: #fff;
         font-weight: bold;
