@@ -15,7 +15,7 @@
                 v-show="selectedIndex !== 0"
                 icon="res://add"
                 @tap="onAdd"
-                android.position="actionBar" />
+                android.position="actionBar"></ActionItem>
         </ActionBar>
 
         <TabView class="tab-view fa"

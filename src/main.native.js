@@ -5,6 +5,8 @@ import Login from './components/Login'
 import Home from './components/Home'
 
 import FontIcon from 'nativescript-vue-fonticon'
+import moment from 'moment'
+
 
 // Set the following to `true` to hide the logs created by nativescript-vue
 Vue.config.silent = false
@@ -28,6 +30,8 @@ Vue.use(FontIcon, {
 Vue.filter('wordcase', v => {
   return v.toLowerCase().replace(/\b[a-z]/g, l => l.toUpperCase());
 })
+
+
 
 const api = new ApiService()
 Vue.prototype.$api = api
