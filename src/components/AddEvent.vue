@@ -16,10 +16,10 @@
 
             <DateTimePicker v-model="form.start_at" title="Date"></DateTimePicker>
 
-            <TextField v-model="textFieldValue" hint="Enter Location"></TextField>
+            <TextField v-model="form.location" hint="Enter Location"></TextField>
 
-            <TextField v-model="textFieldValue" hint="Enter Address"></TextField>
-            <Button text="Create" @tap="onButtonTap"></Button>
+            <TextField v-model="form.address" hint="Enter Address"></TextField>
+            <Button text="Create" @tap="onCreateEvent"></Button>
 
         </StackLayout>
 
@@ -38,35 +38,80 @@
             team: {
                 type: Object,
                 required: true,
+            },
+            eventType: {
+                type: String,
+                required: true,
             }
         },
         data() {
             return {
-                textFieldValue: "",
                 form: {
                     start_at: null,
-                    event_type: null,
-                    other_team: {}
-
+                    other_team: {},
+                    location: null,
+                    address: null,
                 },
 
             }
         },
+        computed: {
+            isGame() {
+                return this.eventType === 'game'
+            }
+        },
         methods: {
-            onButtonTap() {
-                console.log("Button was pressed");
+            async onCreateEvent() {
+                try {
+                    let data = {
+                        event_type: this.form,
+                        location_name: this.form.location_name,
+                        location_address: this.form.location_address,
+                        location_detail: this.form.location_detail,
+                        start_at: this.form.start_at,
+                        home_team_id: this.team.id,
+                    }
+
+                    if (this.isGame) {
+                        data.away_team_id = this.form.other_team.id
+                    }
+
+                    let response = await this.$api.client.post('/events', data)
+                } catch (e) {
+                    alert(e.response.data || e.message)
+                }
+
+
+                // For William :)
+                // let response = await this.$api.client.post('/events/5', {
+                //     home_score: 9999,
+                //     away_score: 5,
+                // })
+
+
+                /*
+                {
+                  "event_type": "event",
+                  "home_score": null,
+                  "away_score": null,
+                  "location_name": "Blue Plate Eatery",
+                  "location_address": "11408 Darlena Trace, West Berry, MD 55271-5104",
+                  "location_detail": "Odio dolorum sed porro.",
+                  "start_at": "2019-11-05T15:17:49.000-08:00",
+                  "home_team_id": 1
+                }
+                 */
             },
             onBack() {
                 this.$navigateBack();
             },
 
             async onSelectTeam() {
-                    this.form.other_team = await this.$showModal(SelectTeam, {
-                        transition: 'slideTop',
-                        fullscreen: true,
+                this.form.other_team = await this.$showModal(SelectTeam, {
+                    transition: 'slideTop',
+                    fullscreen: true,
 
-                    })
-
+                })
             }
         }
     }
