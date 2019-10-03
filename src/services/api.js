@@ -104,4 +104,7 @@ export default class ApiService {
     teamMembers(id) {
         return this.client.get(`/teams/${id}/members`)
     }
+    allTeams() {
+        return this.client.get('/teams/all')
+    }
 }

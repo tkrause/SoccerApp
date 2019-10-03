@@ -5,22 +5,15 @@
         </ActionBar>
 
         <StackLayout class="form">
-            <TextField hint="Select type of Event"
-                       editable="false"
-                       :text="form.event_type"
-                       @tap="onSelectEventType"
-                       class="input input-rounded input-border"></TextField>
+
             <!--         You can delete this line and the label below it :)-->
-            <!--
+
             <TextField hint="Select a Team"
                        editable="false"
-                       :text=""
+                       :text="form.other_team.name"
                        @tap="onSelectTeam"
                        class="input input-rounded input-border"></TextField>
-            -->
 
-
-            <Label :text="form.start_at"></Label>
             <DateTimePicker v-model="form.start_at" title="Date"></DateTimePicker>
 
             <TextField v-model="textFieldValue" hint="Enter Location"></TextField>
@@ -35,6 +28,7 @@
 
 <script>
     import DateTimePicker from "./DateTimePicker";
+    import SelectTeam from "./SelectTeam";
 
     export default {
         components: {
@@ -49,19 +43,13 @@
         data() {
             return {
                 textFieldValue: "",
-                textFieldValue: "",
-                textFieldValue: "",
-                textFieldValue: "",
-                textFieldValue: "",
                 form: {
                     start_at: null,
-                    event_type: null
-                },
-                types: [
-                    'Game',
-                    'Event',
+                    event_type: null,
+                    other_team: {}
 
-                ],
+                },
+
             }
         },
         methods: {
@@ -71,20 +59,14 @@
             onBack() {
                 this.$navigateBack();
             },
-            /*
-            async onSelectTeam() {
-                this.form.user = await this.$showModal(SelectUser, {
-                    transition: 'slideTop',
-                    fullscreen: true,
-                }),
-              */
 
-            async onSelectEventType() {
-                try {
-                    let result = await action("Select a Event Type", "Cancel", this.types)
-                    this.form.event_type = result
-                } catch (e) {
-                }
+            async onSelectTeam() {
+                    this.form.other_team = await this.$showModal(SelectTeam, {
+                        transition: 'slideTop',
+                        fullscreen: true,
+
+                    })
+
             }
         }
     }
