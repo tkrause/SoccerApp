@@ -1,5 +1,5 @@
 <template>
-    <Page class="page">
+    <Page class="page" @loaded="onLoaded">
         <ActionBar class="action-bar" @tap="onTeamSelect">
             <StackLayout
                 orientation="horizontal"
@@ -23,16 +23,15 @@
                  androidTabsPosition="bottom">
 
             <TabViewItem :title="'fa-home' | fonticon">
-                <Overview :team="team" ></Overview>
-
+                <Overview :team="team" ref="overview"></Overview>
             </TabViewItem>
 
             <TabViewItem :title="'fa-calendar' | fonticon">
-                <Schedule :team="team" ></Schedule>
+                <Schedule :team="team" ref="schedule"></Schedule>
             </TabViewItem>
 
             <TabViewItem :title="'fa-users' | fonticon">
-                <Roster :team="team"></Roster>
+                <Roster :team="team" ref="roster"></Roster>
             </TabViewItem>
         </TabView>
     </Page>
@@ -68,6 +67,9 @@
         methods: {
             onTeamSelect() {
                 this.$navigateTo(TeamSelector)
+            },
+            onLoaded() {
+                this.$refs.roster.refresh()
             },
             async onAdd() {
                 // navigate to the right component

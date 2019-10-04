@@ -1,9 +1,13 @@
 <template>
-    <ListView
+    <RadListView
             for="player in players"
+            ref="listView"
             class="list-group body"
             separatorColor="transparent"
-            @itemTap="onPlayerTap">
+            swipeActions="true"
+            pullToRefresh="true"
+            @itemSwipeProgressStarted="onSwipeStarted"
+            @pullToRefreshInitiated="onPullAction">
 
         <v-template>
             <GridLayout class="list-group-item" rows="auto" columns="auto, *">
@@ -15,7 +19,22 @@
                 </StackLayout>
             </GridLayout>
         </v-template>
-    </ListView>
+
+        <v-template name="itemswipe">
+            <GridLayout columns="*, auto" backgroundColor="#F2F3F4">
+                <StackLayout id="delete-view"
+                             col="1"
+                             class="swipe-item right"
+                             orientation="horizontal" @tap="onPlayerSwipeClick">
+                    <Label class="fa p-y-4 p-x-8"
+                           color="#283237"
+                           text="Remove"
+                           verticalAlignment="center"
+                           horizontalAlignment="center"></Label>
+                </StackLayout>
+            </GridLayout>
+        </v-template>
+    </RadListView>
 </template>
 
 <script>
@@ -32,8 +51,53 @@
             }
         },
         methods: {
-            onPlayerTap(event) {
+            onSwipeStarted ({ data, object }) {
+                const swipeLimits = data.swipeLimits;
+                const right = object.getViewById('delete-view');
+                swipeLimits.right = right.getMeasuredWidth();
+                swipeLimits.threshold = right.getMeasuredWidth() / 2;
+            },
 
+            async onPlayerSwipeClick({ object }) {
+                let player = object.bindingContext
+
+                try {
+                    // remove from the api, when succeeded delete local object
+                    await this.$api.client.delete(`/teams/${this.team.id}/members/${player.id}`)
+                    this.removePlayer(player)
+                } catch (e) {
+                    // if we found the object but had some other error
+                    if (e.response.statusCode !== 404) {
+                        alert(e.response.data.error)
+                    } else {
+                        // this is fine the player doesn't exist on the server
+                        this.removePlayer(player)
+                    }
+                } finally {
+                    // tell the listView it can swipe other items
+                    this.$refs.listView.notifySwipeToExecuteFinished();
+                }
+            },
+
+            removePlayer(player) {
+                this.players.splice(this.players.indexOf(player), 1)
+            },
+
+            onPullAction({ object }) {
+                this.$nextTick(() => {
+                    this.load().finally(() => {
+                        object.notifyPullToRefreshFinished();
+                    })
+                });
+            },
+
+            refresh() {
+                this.load()
+            },
+
+            async load() {
+                let { data: players } = await this.$api.teamMembers(this.team.id)
+                this.players = players
             }
         },
         filters: {
@@ -57,9 +121,8 @@
                 return p.jersey_number
             }
         },
-        async created() {
-            let { data: players } = await this.$api.teamMembers(this.team.id)
-            this.players = players
+        created() {
+            this.load()
         }
     }
 </script>
