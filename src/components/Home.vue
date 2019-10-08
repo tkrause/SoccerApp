@@ -98,7 +98,7 @@
                         this.$navigateTo(AddEvent, {
                             props: {
                                 team: this.team,
-                                eventType,
+                                eventType: eventType.toLowerCase(),
                             }
                         })
 
