@@ -97,7 +97,7 @@
 
             onPullAction({ object }) {
                 this.$nextTick(() => {
-                    this.load().finally(() => {
+                    this.onLoaded().finally(() => {
                         object.notifyPullToRefreshFinished();
                     })
                 });

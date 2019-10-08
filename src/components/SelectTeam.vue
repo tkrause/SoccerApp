@@ -1,11 +1,11 @@
 <template>
     <Frame>
-        <Page class="page">
+        <Page class="page" @loaded="onLoaded">
             <ActionBar class="action-bar" title="Select a Team">
                 <NavigationButton @tap="onBack" icon="res://back"/>
             </ActionBar>
 
-            <StackLayout class="form">
+            <StackLayout v-if="! loading" class="form">
 
                 <ListView
                           for="team in teams"
@@ -22,6 +22,7 @@
 
             </StackLayout>
 
+            <ActivityIndicator v-else busy="true" width="50" height="50"></ActivityIndicator>
         </Page>
     </Frame>
 </template>
@@ -32,6 +33,7 @@
             return {
                 teams: [],
                 selected: null,
+                loading: true,
             }
         },
 
@@ -39,17 +41,21 @@
             onBack() {
                 this.$modal.close()
             },
-            async onSubmit() {
 
-            },
             onSelectTeam(event) {
                 this.$modal.close(event.item)
             },
-        },
 
-        async created() {
-            let { data: teams } = await this.$api.allTeams()
-            this.teams = teams
+            async onLoaded() {
+                this.loading = true
+
+                try {
+                    let {data: teams} = await this.$api.allTeams()
+                    this.teams = teams
+                } finally {
+                    this.loading = false
+                }
+            }
         },
     }
 </script>

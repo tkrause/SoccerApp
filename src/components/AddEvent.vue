@@ -71,7 +71,7 @@
             async onCreateEvent() {
                 try {
                     let data = {
-                        event_type: this.form,
+                        event_type: this.eventType,
                         location_name: this.form.location,
                         location_address: this.form.address,
                         location_detail: this.form.detail,
@@ -84,12 +84,11 @@
                     }
 
                     await this.$api.client.post('/events', data)
-                } catch (e) {
-                    alert(e.response.data || e.message)
-                } finally {
-                    this.onBack()
-                }
 
+                    this.onBack()
+                } catch (e) {
+                    alert(e.response.data.error || e.message)
+                }
 
                 // For William :)
                 // let response = await this.$api.client.post('/events/5', {
