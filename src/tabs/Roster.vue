@@ -1,40 +1,49 @@
 <template>
-    <RadListView
-            for="player in players"
-            ref="listView"
-            class="list-group body"
-            separatorColor="transparent"
-            swipeActions="true"
-            pullToRefresh="true"
-            @itemSwipeProgressStarted="onSwipeStarted"
-            @pullToRefreshInitiated="onPullAction">
+    <Frame>
+        <Page class="page" actionBarHidden="true" @loaded="onLoaded">
 
-        <v-template>
-            <GridLayout class="list-group-item" rows="auto" columns="auto, *">
-                <Label row="0" col="0" class="player-avatar" :text="player | toAvatar"></Label>
+            <RadListView
+                    v-if="! loading"
+                    for="player in players"
+                    ref="listView"
+                    class="list-group body"
+                    separatorColor="transparent"
+                    swipeActions="true"
+                    pullToRefresh="true"
+                    @itemSwipeProgressStarted="onSwipeStarted"
+                    @pullToRefreshInitiated="onPullAction">
 
-                <StackLayout row="0" col="1" verticalAlignment="center">
-                    <Label :text="player | name" />
-                    <Label class="m-t-2 text-muted" :text="player.role | wordcase"></Label>
-                </StackLayout>
-            </GridLayout>
-        </v-template>
+                <v-template>
+                    <GridLayout class="list-group-item" rows="auto" columns="auto, *">
+                        <Label row="0" col="0" class="player-avatar" :text="player | toAvatar"></Label>
 
-        <v-template name="itemswipe">
-            <GridLayout columns="*, auto" backgroundColor="#F2F3F4">
-                <StackLayout id="delete-view"
-                             col="1"
-                             class="swipe-item right"
-                             orientation="horizontal" @tap="onPlayerSwipeClick">
-                    <Label class="fa p-y-4 p-x-8"
-                           color="#283237"
-                           text="Remove"
-                           verticalAlignment="center"
-                           horizontalAlignment="center"></Label>
-                </StackLayout>
-            </GridLayout>
-        </v-template>
-    </RadListView>
+                        <StackLayout row="0" col="1" verticalAlignment="center">
+                            <Label :text="player | name" />
+                            <Label class="m-t-2 text-muted" :text="player.role | wordcase"></Label>
+                        </StackLayout>
+                    </GridLayout>
+                </v-template>
+
+                <v-template name="itemswipe">
+                    <GridLayout columns="*, auto" backgroundColor="#F2F3F4">
+                        <StackLayout id="delete-view"
+                                     col="1"
+                                     class="swipe-item right"
+                                     orientation="horizontal" @tap="onPlayerSwipeClick">
+                            <Label class="fa p-y-4 p-x-8"
+                                   color="#283237"
+                                   text="Remove"
+                                   verticalAlignment="center"
+                                   horizontalAlignment="center"></Label>
+                        </StackLayout>
+                    </GridLayout>
+                </v-template>
+            </RadListView>
+
+            <ActivityIndicator v-else busy="true" width="50" height="50"></ActivityIndicator>
+
+        </Page>
+    </Frame>
 </template>
 
 <script>
@@ -45,11 +54,14 @@
                 required: true,
             }
         },
+
         data() {
             return {
                 players: [],
+                loading: true,
             }
         },
+
         methods: {
             onSwipeStarted ({ data, object }) {
                 const swipeLimits = data.swipeLimits;
@@ -92,14 +104,21 @@
             },
 
             refresh() {
-                this.load()
+                this.onLoaded()
             },
 
-            async load() {
-                let { data: players } = await this.$api.teamMembers(this.team.id)
-                this.players = players
+            async onLoaded() {
+                this.loading = true
+
+                try {
+                    let {data: players} = await this.$api.teamMembers(this.team.id)
+                    this.players = players
+                } finally {
+                    this.loading = false
+                }
             }
         },
+
         filters: {
             name(v) {
                 return `${v.user.name}`
@@ -121,9 +140,6 @@
                 return p.jersey_number
             }
         },
-        created() {
-            this.load()
-        }
     }
 </script>
 

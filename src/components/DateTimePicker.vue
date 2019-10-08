@@ -52,7 +52,9 @@
                     );
 
                     this.$emit('input', date)
-                } catch (err) { }
+                } catch (err) {
+                    // Do nothing
+                }
             }
         }
     }

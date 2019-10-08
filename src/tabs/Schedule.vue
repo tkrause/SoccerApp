@@ -1,46 +1,55 @@
 <template>
-    <ListView class="list-group"
-              for="e in events"
-              separatorColor="transparent"
-              @itemTap="onItemTap">
-        <v-template>
-            <GridLayout class="list-group-item" rows="auto" columns="auto, *">
+    <Frame>
+        <Page class="page" actionBarHidden="true" @loaded="onLoaded">
 
-                <StackLayout class="m-r-10 event-box"
-                             row="0" col="0"
-                             horizontalAlignment="center" verticalAlignment="center"
-                             orientation="horizontal">
+            <ListView v-if="! loading"
+                      class="list-group"
+                      for="e in events"
+                      separatorColor="transparent"
+                      @itemTap="onItemTap">
+                <v-template>
+                    <GridLayout class="list-group-item" rows="auto" columns="auto, *">
 
-                    <StackLayout class="m-r-4" verticalAlignment="center">
-                        <Label v-for="c in toMonth(e.start_at)"
-                               :key="c"
-                               :text="c"
-                               class="text-month"></Label>
-                    </StackLayout>
+                        <StackLayout class="m-r-10 event-box"
+                                     row="0" col="0"
+                                     horizontalAlignment="center" verticalAlignment="center"
+                                     orientation="horizontal">
 
-                    <StackLayout verticalAlignment="center" horizontalAlignment="center">
-<!--                    <Label class="text-month" :text="e.start_at | month"></Label>-->
-                        <Label class="text-date" :text="e.start_at | dayOfTheMonth"></Label>
-                        <Label class="text-day" :text="e.start_at | day"></Label>
-                    </StackLayout>
-                </StackLayout>
+                            <StackLayout class="m-r-4" verticalAlignment="center">
+                                <Label v-for="c in toMonth(e.start_at)"
+                                       :key="c"
+                                       :text="c"
+                                       class="text-month"></Label>
+                            </StackLayout>
 
-                <StackLayout row="0" col="1" verticalAlignment="center">
-                    <Label>
-                        <FormattedString>
-                            <Span :class="['fa', e.event_type === 'game' ? 'icon-game' : 'icon-event']"
-                                  :text="e.event_type === 'game' ? 'fa-futbol-o' : 'fa-calendar-o' | fonticon"></Span>
-                            <Span text=" "></Span>
-                            <Span class="font-weight-bold" :text="e.start_at | time"></Span>
-                        </FormattedString>
-                    </Label>
-                    <Label v-if="e.event_type === 'game'" class="text-muted m-y-2">vs. {{ getTeamVs(e) }}</Label>
-                    <Label class="text-muted" :text="e.location_name"></Label>
-                </StackLayout>
+                            <StackLayout verticalAlignment="center" horizontalAlignment="center">
+        <!--                    <Label class="text-month" :text="e.start_at | month"></Label>-->
+                                <Label class="text-date" :text="e.start_at | dayOfTheMonth"></Label>
+                                <Label class="text-day" :text="e.start_at | day"></Label>
+                            </StackLayout>
+                        </StackLayout>
 
-            </GridLayout>
-        </v-template>
-    </ListView>
+                        <StackLayout row="0" col="1" verticalAlignment="center">
+                            <Label>
+                                <FormattedString>
+                                    <Span :class="['fa', e.event_type === 'game' ? 'icon-game' : 'icon-event']"
+                                          :text="e.event_type === 'game' ? 'fa-futbol-o' : 'fa-calendar-o' | fonticon"></Span>
+                                    <Span text=" "></Span>
+                                    <Span class="font-weight-bold" :text="e.start_at | time"></Span>
+                                </FormattedString>
+                            </Label>
+                            <Label v-if="e.event_type === 'game'" class="text-muted m-y-2">vs. {{ getTeamVs(e) }}</Label>
+                            <Label class="text-muted" :text="e.location_name"></Label>
+                        </StackLayout>
+
+                    </GridLayout>
+                </v-template>
+            </ListView>
+
+            <ActivityIndicator v-else busy="true" width="50" height="50"></ActivityIndicator>
+
+        </Page>
+    </Frame>
 </template>
 
 <script>
@@ -53,12 +62,14 @@
                 required: true,
             }
         },
+
         data() {
             return {
                 events: [],
-                loading: false,
+                loading: true,
             }
         },
+
         filters: {
             month(v) {
                 return moment(v).format('MMM')
@@ -73,30 +84,38 @@
                 return moment(v).format('h:mm A')
             },
         },
+
         methods: {
             onItemTap(args) {
                 // console.log('Item with index: ' + args.index + ' tapped')
             },
+
             getTeamVs(event) {
                 if(this.team === event.home_team_id)
                     return event.away_team_id
                 else
                     return event.home_team_id
             },
+
             toMonth(v) {
                 return moment(v).format('MMM').toUpperCase().split('')
+            },
+
+            refresh() {
+                this.onLoaded()
+            },
+
+            async onLoaded() {
+                this.loading = true
+
+                try {
+                    let { data: events } = await this.$api.eventsForTeam(this.team.id)
+                    this.events = events
+                } finally {
+                    this.loading = false
+                }
             }
         },
-        async created() {
-            this.loading = true
-
-            try {
-                let { data: events } = await this.$api.eventsForTeam(this.team.id)
-                this.events = events
-            } finally {
-                this.loading = false
-            }
-        }
     }
 </script>
 

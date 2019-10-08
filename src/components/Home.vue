@@ -20,6 +20,7 @@
 
         <TabView class="tab-view fa"
                  v-model="selectedIndex"
+                 @selectedIndexChange="onTabChanged"
                  androidTabsPosition="bottom">
 
             <TabViewItem :title="'fa-home' | fonticon">
@@ -68,9 +69,23 @@
             onTeamSelect() {
                 this.$navigateTo(TeamSelector)
             },
+
             onLoaded() {
-                this.$refs.roster.refresh()
+                this.onTabChanged({
+                    newIndex: this.selectedIndex,
+                })
             },
+
+            onTabChanged({ newIndex }) {
+                let available = ['overview', 'schedule', 'roster']
+                if (newIndex > available.length)
+                    return
+
+                let ref = this.$refs[available[newIndex]]
+                if (ref && ref.refresh)
+                    ref.refresh()
+            },
+
             async onAdd() {
                 // navigate to the right component
                 if (this.selectedIndex === 1) {

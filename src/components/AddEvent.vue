@@ -76,7 +76,7 @@
                         data.away_team_id = this.form.other_team.id
                     }
 
-                    let response = await this.$api.client.post('/events', data)
+                    await this.$api.client.post('/events', data)
                 } catch (e) {
                     alert(e.response.data || e.message)
                 }
