@@ -8,7 +8,8 @@
 
             <!--         You can delete this line and the label below it :)-->
 
-            <TextField hint="Select a Team"
+            <TextField  v-if="isGame"
+                        hint="Select a Team"
                        editable="false"
                        :text="form.other_team.name"
                        @tap="onSelectTeam"
@@ -19,6 +20,11 @@
             <TextField v-model="form.location" hint="Enter Location"></TextField>
 
             <TextField v-model="form.address" hint="Enter Address"></TextField>
+
+            <TextView  v-model="form.detail" hint="Comments">
+
+            </TextView>
+
             <Button text="Create" @tap="onCreateEvent"></Button>
 
         </StackLayout>
@@ -51,6 +57,7 @@
                     other_team: {},
                     location: null,
                     address: null,
+                    detail: null,
                 },
 
             }
@@ -65,9 +72,9 @@
                 try {
                     let data = {
                         event_type: this.form,
-                        location_name: this.form.location_name,
-                        location_address: this.form.location_address,
-                        location_detail: this.form.location_detail,
+                        location_name: this.form.location,
+                        location_address: this.form.address,
+                        location_detail: this.form.detail,
                         start_at: this.form.start_at,
                         home_team_id: this.team.id,
                     }
@@ -79,6 +86,8 @@
                     await this.$api.client.post('/events', data)
                 } catch (e) {
                     alert(e.response.data || e.message)
+                } finally {
+                    this.onBack()
                 }
 
 
