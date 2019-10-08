@@ -1,7 +1,7 @@
 <template>
 
     <Frame>
-        <Page class="page" actionBarHidden="true" @loaded="onLoaded">
+        <Page class="page" actionBarHidden="true" @loaded="onLoaded" @navigatedTo="onLoaded">
             <ScrollView v-if="! loading" class="body">
                 <StackLayout>
 
@@ -140,6 +140,7 @@
 <script>
     import moment from "moment";
     import * as utils from "tns-core-modules/utils/utils"
+    import { debounce } from "../services/util";
 
     export default {
         props: {
@@ -186,7 +187,7 @@
 
         filters: {
             date(date) {
-                return moment(date).format('ddd, MMM MM');
+                return moment(date).format('ddd, MMM DD');
             },
 
             time(date) {
@@ -198,10 +199,12 @@
             onLocate(address) {
                 utils.openUrl(`geo:0,0?q=${ encodeURI(address) }`)
             },
+
             refresh() {
                 this.onLoaded()
             },
-            async onLoaded() {
+
+            onLoaded: debounce(async function() {
                 this.loading = true
 
                 try {
@@ -214,7 +217,7 @@
                 } finally {
                     this.loading = false
                 }
-            }
+            }, 400)
         },
     }
 </script>

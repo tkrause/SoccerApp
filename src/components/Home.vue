@@ -88,13 +88,14 @@
 
             async onAdd() {
                 // navigate to the right component
-                if(this.selectedIndex === 0){
+                if (this.selectedIndex === 0) {
                     this.$navigateTo(AddScore, {
                         props: {
                             team: this.team,
                         }
                     })
                 }
+
                 if (this.selectedIndex === 1) {
                     try {
                         let eventType = await action("Select a Event Type", "Cancel",  [

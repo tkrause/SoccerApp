@@ -29,7 +29,9 @@
                 type: Object,
                 required: true,
             },
-        },data() {
+        },
+
+        data() {
             return {
                 recentGame: {
                     home_team: {},
@@ -39,6 +41,7 @@
                 processing: false
             }
         },
+
         methods: {
             async onLoad() {
                 this.loading = true
@@ -52,6 +55,7 @@
                     this.loading = false
                 }
             },
+
             async onSubmit() {
                 try {
                     await this.$api.client.put(`/events/${this.recentGame.id}`, {
@@ -63,6 +67,7 @@
                     alert(e.message)
                 }
             },
+
             onBack() {
                 this.$navigateBack();
             },
