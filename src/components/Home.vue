@@ -12,7 +12,6 @@
             </StackLayout>
 
             <ActionItem
-                v-show="selectedIndex !== 0"
                 icon="res://add"
                 @tap="onAdd"
                 android.position="actionBar"></ActionItem>
@@ -43,6 +42,7 @@
     import Schedule from "../tabs/Schedule";
     import Roster from "../tabs/Roster";
 
+    import AddScore from "./AddScore";
     import TeamSelector from "./TeamSelector";
     import AddToRoster from "./AddToRoster";
     import AddEvent from "./AddEvent";
@@ -88,6 +88,13 @@
 
             async onAdd() {
                 // navigate to the right component
+                if(this.selectedIndex === 0){
+                    this.$navigateTo(AddScore, {
+                        props: {
+                            team: this.team,
+                        }
+                    })
+                }
                 if (this.selectedIndex === 1) {
                     try {
                         let eventType = await action("Select a Event Type", "Cancel",  [
