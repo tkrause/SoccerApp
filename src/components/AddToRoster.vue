@@ -94,9 +94,10 @@
 
             async onSelectRole() {
                 try {
-                    let result = await action("Select a Role", "Cancel", this.roles)
-                    this.form.role = result
-                } catch (e) { }
+                    this.form.role = await action("Select a Role", "Cancel", this.roles)
+                } catch (e) {
+                    // do nothing, user just hit cancel
+                }
             },
             async onSelectUser() {
                 this.form.user = await this.$showModal(SelectUser, {
@@ -107,7 +108,7 @@
 
             async onSubmit() {
                 try {
-                    let response = await this.$api.client.post(`/teams/${this.team.id}/members`, {
+                    await this.$api.client.post(`/teams/${this.team.id}/members`, {
                         user_id: this.form.user?.id,
                         role: this.form.role?.toLowerCase(),
                         jersey_number: this.form.jersey_number,

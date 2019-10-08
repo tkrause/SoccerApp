@@ -1,9 +1,8 @@
 <template>
     <Frame>
-        <Page class="page" actionBarHidden="true" @loaded="onLoaded">
+        <Page class="page" actionBarHidden="true">
 
             <RadListView
-                    v-if="! loading"
                     for="player in players"
                     ref="listView"
                     class="list-group body"
@@ -25,14 +24,15 @@
                 </v-template>
 
                 <v-template name="itemswipe">
-                    <GridLayout columns="*, auto" backgroundColor="#F2F3F4">
+                    <GridLayout columns="*, auto" backgroundColor="#B02F26">
                         <StackLayout id="delete-view"
                                      col="1"
                                      class="swipe-item right"
                                      orientation="horizontal" @tap="onPlayerSwipeClick">
                             <Label class="fa p-y-4 p-x-8"
-                                   color="#283237"
-                                   text="Remove"
+                                   color="#ffffff"
+                                   fontSize="16"
+                                   :text="'fa-trash-o' | fonticon"
                                    verticalAlignment="center"
                                    horizontalAlignment="center"></Label>
                         </StackLayout>
@@ -40,8 +40,7 @@
                 </v-template>
             </RadListView>
 
-            <ActivityIndicator v-else busy="true" width="50" height="50"></ActivityIndicator>
-
+<!--            <ActivityIndicator v-if="loading" busy="true" width="50" height="50"></ActivityIndicator>-->
         </Page>
     </Frame>
 </template>
@@ -117,6 +116,10 @@
                     this.loading = false
                 }
             }
+        },
+
+        created() {
+            this.onLoaded()
         },
 
         filters: {

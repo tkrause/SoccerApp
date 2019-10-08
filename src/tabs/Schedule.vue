@@ -5,8 +5,7 @@
             <ListView v-if="! loading"
                       class="list-group"
                       for="e in events"
-                      separatorColor="transparent"
-                      @itemTap="onItemTap">
+                      separatorColor="transparent">
                 <v-template>
                     <GridLayout class="list-group-item" rows="auto" columns="auto, *">
 
@@ -86,9 +85,9 @@
         },
 
         methods: {
-            onItemTap(args) {
-                // console.log('Item with index: ' + args.index + ' tapped')
-            },
+            // onItemTap(args) {
+            //     console.log('Item with index: ' + args.index + ' tapped')
+            // },
 
             getTeamVs(event) {
                 if(this.team === event.home_team_id)

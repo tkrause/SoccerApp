@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run build:web",
     "start": "node server.js",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint --mode development.android",
     "build:android": "npm run setup-webpack-config && tns build android --bundle --env.production && npm run remove-webpack-config",
     "build:ios": "npm run setup-webpack-config && tns build ios --bundle --env.production && npm run remove-webpack-config",
     "build:web": "vue-cli-service build --mode production.web",

@@ -109,7 +109,9 @@
                             }
                         })
 
-                    } catch (e) { }
+                    } catch (e) {
+                        // do nothin, user just hit cancel
+                    }
 
                     // nav to add event / game
                 } else if (this.selectedIndex === 2) {
