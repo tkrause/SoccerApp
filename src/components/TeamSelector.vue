@@ -28,6 +28,7 @@
     import Home from './Home'
 
     import * as appSettings from "tns-core-modules/application-settings";
+    import AddTeam from "./AddTeam";
 
     export default {
         data() {
@@ -56,20 +57,18 @@
             },
 
             async onAdd() {
-                let name = await prompt('Team Name')
-                let number = await prompt('Team Number')
-
-                this.loading = true
-
                 try {
-                    let team = await this.$api.client.post(`/teams`, {
-                        name,
-                        team_number: number,
+                    let team = await this.$showModal(AddTeam, {
+                        transition: 'slideTop',
+                        fullscreen: true,
                     })
 
+                    if (! team)
+                        return
+
                     this.teams.push(team)
-                } finally {
-                    this.loading = false
+                } catch (e) {
+                    // cancelled
                 }
             },
 
