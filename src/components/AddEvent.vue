@@ -4,31 +4,38 @@
             <NavigationButton @tap="onBack" icon="res://back"/>
         </ActionBar>
 
-        <StackLayout class="form">
+        <ScrollView>
+            <StackLayout class="form">
 
-            <!--         You can delete this line and the label below it :)-->
+                <!--         You can delete this line and the label below it :)-->
 
-            <TextField  v-if="isGame"
-                        hint="Select a Team"
-                       editable="false"
-                       :text="form.other_team.name"
-                       @tap="onSelectTeam"
-                       class="input input-rounded input-border"></TextField>
+                <TextField  v-if="isGame"
+                            hint="Select a Team"
+                           editable="false"
+                           :text="form.other_team.name"
+                           @tap="onSelectTeam"
+                           class="input input-rounded input-border"></TextField>
 
-            <DateTimePicker v-model="form.start_at" title="Date"></DateTimePicker>
+                <DateTimePicker v-model="form.start_at" title="Date"></DateTimePicker>
 
-            <TextField v-model="form.location" hint="Enter Location"></TextField>
+                <TextField v-model="form.location"
+                           hint="Enter Location"
+                           class="input input-rounded input-border"></TextField>
 
-            <TextField v-model="form.address" hint="Enter Address"></TextField>
+                <TextField v-model="form.address"
+                           hint="Enter Address"
+                           class="input input-rounded input-border"></TextField>
 
-            <TextView  v-model="form.detail" hint="Comments">
+                <TextView  v-model="form.detail"
+                           hint="Comments"
+                           class="input input-rounded input-border">
 
-            </TextView>
+                </TextView>
 
-            <Button text="Create" @tap="onCreateEvent"></Button>
+                <Button text="Create" @tap="onCreateEvent" class="btn btn-primary btn-rounded-lg m-t-20"></Button>
 
-        </StackLayout>
-
+            </StackLayout>
+        </ScrollView>
     </Page>
 </template>
 

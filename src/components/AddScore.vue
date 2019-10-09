@@ -6,12 +6,15 @@
 
         <StackLayout class="form" v-if="! loading">
 
+            <Label class="text-muted font-weight-bold">Home Score</Label>
             <TextField v-model="recentGame.home_score" hint="Home Team Score"
                        editable="true"
-                       class="input input-rounded input-border"></TextField>
+                       class="input input-border"></TextField>
+
+            <Label class="text-muted font-weight-bold">Away Score</Label>
             <TextField v-model="recentGame.away_score" hint="Away Team Score"
                        editable="true"
-                       class="input input-rounded input-border"></TextField>
+                       class="input input-border"></TextField>
 
             <Button :isEnabled="! processing"
                     text="Update"
