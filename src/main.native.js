@@ -1,11 +1,9 @@
 import Vue from 'nativescript-vue'
 import ApiService from "./services/api";
 
-import Login from './components/Login'
-import Home from './components/Home'
-
 import FontIcon from 'nativescript-vue-fonticon'
-import RadListView from 'nativescript-ui-listview/vue';
+import RadListView from 'nativescript-ui-listview/vue'
+import App from './components/App'
 
 Vue.use(RadListView);
 
@@ -35,8 +33,8 @@ Vue.filter('wordcase', v => {
 const api = new ApiService()
 Vue.prototype.$api = api
 
-const entry = api.isLoggedIn() ? Home : Login
-
-new Vue({
-  render: (h) => h('frame', [h(entry)]),
-}).$start();
+// boot up the main app
+const app = new Vue({
+  render: (h) => h('frame', [h(App)]),
+});
+app.$start();

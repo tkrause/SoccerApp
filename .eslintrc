@@ -13,7 +13,8 @@
     "no-param-reassign": 0,
     "object-curly-newline": 0,
     "no-plusplus": 0,
-    "no-undef": "off"
+    "no-undef": "off",
+    "no-console": "off"
   },
   "parserOptions": {
     "parser": "babel-eslint"
