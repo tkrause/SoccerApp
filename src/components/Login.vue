@@ -86,8 +86,8 @@
                 processing: false,
                 user: {
                     name: null,
-                    email: "user@example.com",
-                    password: "0987654321",
+                    email: null, //"user@example.com",
+                    password: null,//"0987654321",
                     password_confirmation: null
                 }
             };
@@ -147,7 +147,11 @@
                     }
 
                 } catch (e) {
-                    this.alert(e.message);
+                    if (e.response?.statusCode === 401) {
+                        this.alert('Invalid email or password!')
+                    } else {
+                        this.alert(e.message);
+                    }
                     // this.alert("Unfortunately we could not find your account.")
                 } finally {
                     this.processing = false;

@@ -28,6 +28,7 @@
 
 <script>
     import Login from "../components/Login";
+    import * as appSettings from "tns-core-modules/application-settings";
 
     export default {
         props: {
@@ -61,6 +62,7 @@
             },
 
             onLogout() {
+                appSettings.clear()
                 this.$api.logout()
                 this.$navigateTo(Login, {
                     clearHistory: true,
