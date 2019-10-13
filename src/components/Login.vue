@@ -147,7 +147,7 @@
                     }
 
                 } catch (e) {
-                    if (e.response?.statusCode === 401) {
+                    if (e.response?.status === 401) {
                         this.alert('Invalid email or password!')
                     } else {
                         this.alert(e.message);

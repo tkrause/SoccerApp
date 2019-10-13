@@ -16,7 +16,7 @@
                    @tap="onSelectRole"></Label>
 
             <TextField hint="Jersey Number"
-                       :text="form.jersey_number"
+                       v-model="form.jersey_number"
                        class="input input-rounded input-border"></TextField>
 
             <Button :isEnabled="! processing"

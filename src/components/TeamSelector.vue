@@ -23,8 +23,8 @@
 
         <StackLayout v-else horizontalAlignment="center" verticalAlignment="center" margin="20">
             <Label class="h3 text-muted text-center">No Teams Found</Label>
-            <Label>You currently do not have any teams.</Label>
-            <Label>Click the add button above to get started.</Label>
+            <Label class="text-center">You currently do not have any teams.</Label>
+            <Label class="text-center">Click the add button above to get started.</Label>
         </StackLayout>
 
 <!--        <ActivityIndicator :busy="loading"></ActivityIndicator>-->
