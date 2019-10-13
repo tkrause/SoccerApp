@@ -1,11 +1,18 @@
 <template>
     <Frame>
-        <Page class="page" actionBarHidden="true" @loaded="onLoaded">
+        <Page class="page" actionBarHidden="true">
 
-            <ListView v-if="! loading"
-                      class="list-group"
-                      for="e in events"
-                      separatorColor="transparent">
+            <RadListView
+                    for="e in events"
+                    ref="listView"
+                    class="list-group body"
+                    separatorColor="transparent"
+                    swipeActions="true"
+                    pullToRefresh="true"
+                    @itemTap="onItemTap"
+                    @itemSwipeProgressStarted="onSwipeStarted"
+                    @pullToRefreshInitiated="onPullAction">
+
                 <v-template>
                     <GridLayout class="list-group-item" rows="auto" columns="auto, *">
 
@@ -38,14 +45,29 @@
                                 </FormattedString>
                             </Label>
                             <Label v-if="e.event_type === 'game'" class="text-muted m-y-2">vs. {{ getTeamVs(e) }}</Label>
+                            <Label v-else-if="e.location_detail" class="text-muted m-y-2" :text="e.location_detail"></Label>
                             <Label class="text-muted" :text="e.location_name"></Label>
                         </StackLayout>
 
                     </GridLayout>
                 </v-template>
-            </ListView>
 
-            <ActivityIndicator v-else busy="true" width="50" height="50"></ActivityIndicator>
+                <v-template name="itemswipe">
+                    <GridLayout columns="*, auto" backgroundColor="#B02F26">
+                        <StackLayout id="delete-view"
+                                     col="1"
+                                     class="swipe-item right"
+                                     orientation="horizontal" @tap="onEventSwipeClick">
+                            <Label class="fa p-y-4 p-x-8"
+                                   color="#ffffff"
+                                   fontSize="16"
+                                   :text="'fa-trash-o' | fonticon"
+                                   verticalAlignment="center"
+                                   horizontalAlignment="center"></Label>
+                        </StackLayout>
+                    </GridLayout>
+                </v-template>
+            </RadListView>
 
         </Page>
     </Frame>
@@ -53,6 +75,7 @@
 
 <script>
     import moment from "moment";
+    import EventDetail from "../components/EventDetail";
 
     export default {
         props: {
@@ -85,15 +108,20 @@
         },
 
         methods: {
-            // onItemTap(args) {
-            //     console.log('Item with index: ' + args.index + ' tapped')
-            // },
+            onItemTap({ item }) {
+                this.$navigateTo(EventDetail, {
+                    props: {
+                        event: item,
+                        team: this.team,
+                    }
+                })
+            },
 
             getTeamVs(event) {
                 if(this.team === event.home_team_id)
-                    return event.away_team_id
+                    return event.away_team.name
                 else
-                    return event.home_team_id
+                    return event.home_team.name
             },
 
             toMonth(v) {
@@ -113,8 +141,53 @@
                 } finally {
                     this.loading = false
                 }
-            }
+            },
+
+            onSwipeStarted ({ data, object }) {
+                const swipeLimits = data.swipeLimits;
+                const right = object.getViewById('delete-view');
+                swipeLimits.right = right.getMeasuredWidth();
+                swipeLimits.threshold = right.getMeasuredWidth() / 2;
+            },
+
+            async onEventSwipeClick({ object }) {
+                let event = object.bindingContext
+
+                try {
+                    // remove from the api, when succeeded delete local object
+                    await this.$api.client.delete(`/events/${event.id}`)
+                    this.removeEvent(event)
+                } catch (e) {
+                    // if we found the object but had some other error
+                    if (e.response.statusCode !== 404) {
+                        alert(e.response.data.error)
+                    } else {
+                        // this is fine the player doesn't exist on the server
+                        this.removeEvent(event)
+                    }
+                } finally {
+                    // tell the listView it can swipe other items
+                    this.$refs.listView.notifySwipeToExecuteFinished();
+                }
+            },
+
+            removeEvent(event) {
+                this.events.splice(this.events.indexOf(event), 1)
+            },
+
+            onPullAction({ object }) {
+                this.$nextTick(() => {
+                    this.onLoaded().finally(() => {
+                        object.notifyPullToRefreshFinished();
+                    })
+                });
+            },
+
         },
+
+        created() {
+            this.onLoaded()
+        }
     }
 </script>
 

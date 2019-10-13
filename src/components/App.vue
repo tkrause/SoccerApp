@@ -16,7 +16,7 @@
 
         data() {
             return {
-                connected: false,
+                connected: true,
             }
         },
 

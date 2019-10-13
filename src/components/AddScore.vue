@@ -32,14 +32,16 @@
                 type: Object,
                 required: true,
             },
+
+            event: {
+                type: Object,
+                default: null,
+            }
         },
 
         data() {
             return {
-                recentGame: {
-                    home_team: {},
-                    away_team: {},
-                },
+                recentGame: {},
                 loading: true,
                 processing: false
             }
@@ -50,8 +52,13 @@
                 this.loading = true
 
                 try {
-                    let { data: recentGame } = await this.$api.recentEvent(this.team.id)
-                    this.recentGame = recentGame
+                    // use the game passed in, or look it up
+                    if (this.event) {
+                        this.recentGame = this.event
+                    } else {
+                        let {data: recentGame} = await this.$api.recentEvent(this.team.id)
+                        this.recentGame = recentGame
+                    }
                 } catch(e) {
                     alert(e.message)
                 } finally {

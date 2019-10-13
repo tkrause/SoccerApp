@@ -129,7 +129,7 @@
 
 <style scoped>
     .tab-view {
-        tab-text-font-size: 24;
+        tab-text-font-size: 24 !important;
     }
 
     .action-bar-icon {
