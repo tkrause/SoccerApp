@@ -93,11 +93,12 @@
             },
 
             async onSelectRole() {
-                try {
-                    this.form.role = await action("Select a Role", "Cancel", this.roles)
-                } catch (e) {
-                    // do nothing, user just hit cancel
-                }
+                let role = await action("Select a Role", "Cancel", this.roles)
+
+                if (! this.roles.includes(role))
+                    return
+
+                this.role = role
             },
             async onSelectUser() {
                 this.form.user = await this.$showModal(SelectUser, {
