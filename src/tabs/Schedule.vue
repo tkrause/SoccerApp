@@ -89,6 +89,7 @@
             return {
                 events: [],
                 loading: true,
+                swiping: false,
             }
         },
 
@@ -109,6 +110,11 @@
 
         methods: {
             onItemTap({ item }) {
+                if (this.swiping) {
+                    this.swiping = false
+                    return
+                }
+
                 this.$navigateTo(EventDetail, {
                     props: {
                         event: item,
@@ -148,6 +154,8 @@
                 const right = object.getViewById('delete-view');
                 swipeLimits.right = right.getMeasuredWidth();
                 swipeLimits.threshold = right.getMeasuredWidth() / 2;
+
+                this.swiping = true;
             },
 
             async onEventSwipeClick({ object }) {
@@ -168,6 +176,7 @@
                 } finally {
                     // tell the listView it can swipe other items
                     this.$refs.listView.notifySwipeToExecuteFinished();
+                    this.swiping = false;
                 }
             },
 
@@ -178,6 +187,7 @@
             onPullAction({ object }) {
                 this.$nextTick(() => {
                     this.onLoaded().finally(() => {
+                        this.swiping = false
                         object.notifyPullToRefreshFinished();
                     })
                 });

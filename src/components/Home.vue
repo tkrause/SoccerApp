@@ -20,6 +20,7 @@
 
         <TabView class="tab-view fa"
                  v-model="selectedIndex"
+                 tabTextFontSize="24"
                  @selectedIndexChange="onTabChanged"
                  androidTabsPosition="bottom">
 
