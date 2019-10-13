@@ -8,6 +8,7 @@
         </ActionBar>
 
         <ListView
+            v-if="hasTeams"
             for="team in teams"
             class="list-group"
             separatorColor="transparent"
@@ -20,6 +21,12 @@
             </v-template>
         </ListView>
 
+        <StackLayout v-else horizontalAlignment="center" verticalAlignment="center" margin="20">
+            <Label class="h3 text-muted text-center">No Teams Found</Label>
+            <Label>You currently do not have any teams.</Label>
+            <Label>Click the add button above to get started.</Label>
+        </StackLayout>
+
 <!--        <ActivityIndicator :busy="loading"></ActivityIndicator>-->
     </Page>
 </template>
@@ -29,12 +36,26 @@
 
     import * as appSettings from "tns-core-modules/application-settings";
     import AddTeam from "./AddTeam";
+    import Login from "./Login";
 
     export default {
+        props: {
+            canGoBack: {
+                type: Boolean,
+                default: true,
+            }
+        },
+
         data() {
             return {
                 teams: [],
                 loading: false,
+            }
+        },
+
+        computed: {
+            hasTeams() {
+                return this.teams.length > 0
             }
         },
 
@@ -53,7 +74,14 @@
             },
 
             onGoBack() {
-                this.$navigateBack()
+                if (this.canGoBack) {
+                    this.$navigateBack()
+                } else {
+                    this.$api.logout()
+                    this.$navigateTo(Login, {
+                        clearHistory: true,
+                    })
+                }
             },
 
             async onAdd() {

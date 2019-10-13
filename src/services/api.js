@@ -63,6 +63,11 @@ export default class ApiService {
         return user
     }
 
+    logout() {
+        this.current_user = null
+        this.jwt = null
+    }
+
     register(data) {
         return this.client.post('/users', data)
     }

@@ -122,8 +122,9 @@
                     let team = null
                     if (appSettings.hasKey('lastTeam')) {
                         let id = appSettings.getNumber('lastTeam')
-                        let response = await this.$api.team(id)
-                        team = response.data
+                        let { data: teams } = await this.$api.teams(id)
+                        team = teams.find(t => t.id === id)
+                        // team = response.data
                     }
 
                     // if they were viewing a team go the the home page,
@@ -138,7 +139,10 @@
                         })
                     } else {
                         this.$navigateTo(TeamSelector, {
-                            clearHistory: true
+                            clearHistory: true,
+                            props: {
+                                canGoBack: false,
+                            }
                         })
                     }
 

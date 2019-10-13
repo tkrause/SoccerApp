@@ -12,6 +12,7 @@
             </StackLayout>
 
             <ActionItem
+                v-show="selectedIndex !== 3"
                 icon="res://add"
                 @tap="onAdd"
                 android.position="actionBar"></ActionItem>
@@ -33,6 +34,10 @@
             <TabViewItem :title="'fa-users' | fonticon">
                 <Roster :team="team" ref="roster"></Roster>
             </TabViewItem>
+
+            <TabViewItem :title="'fa-cog' | fonticon">
+                <Settings :team="team" ref="settings"></Settings>
+            </TabViewItem>
         </TabView>
     </Page>
 </template>
@@ -41,6 +46,7 @@
     import Overview from "../tabs/Overview";
     import Schedule from "../tabs/Schedule";
     import Roster from "../tabs/Roster";
+    import Settings from "../tabs/Settings";
 
     import AddScore from "./AddScore";
     import TeamSelector from "./TeamSelector";
@@ -51,7 +57,8 @@
         components:{
             Overview,
             Schedule,
-            Roster
+            Roster,
+            Settings,
         },
         props: {
             team: {
